@@ -17,7 +17,7 @@ export default async function signIn(email, password) {
   }
 }
 
-export default async function logout() {
+export default async function signOut() {
   try {
     const { error } = await supabase.auth.signOut();
 
