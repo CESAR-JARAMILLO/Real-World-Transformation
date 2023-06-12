@@ -1,6 +1,6 @@
 import { supabase } from '../../lib/supabaseClient';
 
-export default async function signIn(email, password) {
+export async function signIn(email, password) {
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -17,7 +17,7 @@ export default async function signIn(email, password) {
   }
 }
 
-export default async function signOut() {
+export async function signOut() {
   try {
     const { error } = await supabase.auth.signOut();
 
@@ -31,7 +31,7 @@ export default async function signOut() {
   }
 }
 
-export default async function createUser(email, password, first_name) {
+export async function signUp(email, password, first_name) {
   try {
     const { user, error } = await supabase.auth.signUp({
       email: email,
@@ -51,4 +51,3 @@ export default async function createUser(email, password, first_name) {
     console.error('Error creating user:', error.message);
   }
 }
-
