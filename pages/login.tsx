@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useUser } from '@supabase/auth-helpers-react';
 import { supabase } from '../lib/supabaseClient';
+import signIn from './api/auth'
 
 const LoginPage = () => {
   const [password, setPassword] = useState('');
@@ -18,16 +19,7 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
-
-    if (error) {
-      console.log('Error signing in:', error.message);
-    } else {
-      console.log('User signed in successfully:', data.user);
-    }
+    signIn(email, password)
 
     setEmail('');
     setPassword('');
