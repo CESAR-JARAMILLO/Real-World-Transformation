@@ -16,3 +16,17 @@ export default async function signIn(email, password) {
     console.error('Error signing in:', error.message);
   }
 }
+
+export default async function logout() {
+  try {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.log('Error signing out:', error.message);
+    } else {
+      console.log('User signed out successfully');
+    }
+  } catch (error) {
+    console.error('Error signing out:', error.message);
+  }
+}
