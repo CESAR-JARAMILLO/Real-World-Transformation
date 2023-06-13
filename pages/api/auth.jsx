@@ -67,3 +67,22 @@ export async function getPosts() {
     console.error('Error retrieving posts:', error.message);
   }
 }
+
+export async function getPostById(id) {
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      throw new Error('Error retrieving post');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error retrieving post:', error.message);
+    throw error;
+  }
+}
