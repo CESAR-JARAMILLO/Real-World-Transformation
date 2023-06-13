@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPosts } from './api/auth';
+import { getPosts } from '../api/auth';
 import Link from 'next/link';
 
 interface Post {
