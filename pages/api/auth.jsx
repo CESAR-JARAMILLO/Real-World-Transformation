@@ -51,3 +51,19 @@ export async function signUp(email, password, first_name) {
     console.error('Error creating user:', error.message);
   }
 }
+
+export async function getPosts() {
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .select();
+
+    if (error) {
+      console.log('Error retrieving posts:', error.message);
+    } else {
+      return data;
+    }
+  } catch (error) {
+    console.error('Error retrieving posts:', error.message);
+  }
+}
