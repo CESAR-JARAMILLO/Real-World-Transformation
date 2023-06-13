@@ -86,3 +86,27 @@ export async function getPostById(id) {
     throw error;
   }
 }
+
+export async function getCommentsByPostId(postId) {
+  try {
+    const { data, error } = await supabase
+      .from('comments')
+      .select('*')
+      .eq('post_id', postId);
+
+    if (error) {
+      console.error('Error fetching comments:', error.message);
+      throw error;
+    }
+
+    if (!data) {
+      console.error('No data returned when fetching comments');
+      throw new Error('No data returned when fetching comments');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching comments:', error.message);
+    throw error;
+  }
+}
