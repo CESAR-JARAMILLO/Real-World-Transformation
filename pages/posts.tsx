@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getPosts } from './api/auth';
+import Link from 'next/link';
 
 interface Post {
   id: string;
@@ -37,6 +38,9 @@ const Posts = () => {
         <div key={post.id}>
           <h3>{post.title}</h3>
           <p>{post.content}</p>
+          <Link href={`/posts/${post.id}`}>
+            {post.title}
+          </Link>
         </div>
       ))}
     </div>
