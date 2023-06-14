@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getPosts } from '../api/auth';
 import Link from 'next/link';
+import { supabase } from '../../lib/supabaseClient'
+import { Session } from '@supabase/supabase-js'
 
 interface Post {
   id: string;
@@ -10,11 +12,25 @@ interface Post {
 
 const Posts = () => {
   const [posts, setPosts] = useState<Post[] | undefined>(undefined);
+  const [session, setSession] = useState<Session | null>(null);
+
+  async function getCurrentSession() {
+    const { data, error } = await supabase.auth.getSession();
+  
+    if (error) {
+      console.error('Error getting session:', error.message);
+      throw error;
+    }
+  
+    return data ? data.session : null; // Here we return just the session data or null
+  }
 
   useEffect(() => {
     async function fetchData() {
       try {
         const postsData = await getPosts();
+        const sessionData = await getCurrentSession();
+
         if (Array.isArray(postsData)) {
           const convertedPosts = postsData.map((postData: any) => ({
             id: postData.id,
@@ -23,6 +39,8 @@ const Posts = () => {
           })) as Post[];
           setPosts(convertedPosts);
         }
+
+        setSession(sessionData);
       } catch (error: any) {
         console.error('Error fetching posts:', error.message);
       }
