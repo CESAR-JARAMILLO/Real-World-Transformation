@@ -109,3 +109,30 @@ export async function getCommentsByPostId(postId) {
     throw error;
   }
 }
+
+export async function createComment(postId, comment) {
+  try {
+    const user = supabase.auth.getUser();
+
+    if (!user) {
+      throw new Error('Not authenticated');
+    }
+
+    const { data, error } = await supabase
+      .from('comments')
+      .insert([
+        { post_id: postId, comment, user_id: user.id },
+      ]);
+
+    if (error) {
+      console.error('Error creating comment:', error.message);
+      throw error;
+    } else {
+      console.log('Comment created successfully:', data);
+      return data;
+    }
+  } catch (error) {
+    console.error('Error creating comment:', error.message);
+    throw error;
+  }
+}
