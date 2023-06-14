@@ -4,6 +4,8 @@ import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 
+import Header from '../components/Header'
+
 export default function App({
   Component,
   pageProps,
@@ -18,6 +20,7 @@ export default function App({
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
+      <Header />
       <Component {...pageProps} />
     </SessionContextProvider>
   )
