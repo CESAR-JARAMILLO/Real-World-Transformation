@@ -103,7 +103,6 @@ export async function getCommentsByPostId(postId) {
       console.error('No data returned when fetching comments');
       throw new Error('No data returned when fetching comments');
     }
-
     return data;
   } catch (error) {
     console.error('Error fetching comments:', error.message);
