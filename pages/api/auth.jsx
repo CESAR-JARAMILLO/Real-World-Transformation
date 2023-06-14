@@ -136,3 +136,22 @@ export async function createComment(postId, comment) {
     throw error;
   }
 }
+
+export async function deleteComment(commentId) {
+  try {
+    const { data, error } = await supabase
+      .from('comments')
+      .delete()
+      .eq('id', commentId);
+    
+    if (error) {
+      console.error('Error deleting comment:', error.message);
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error deleting comment:', error.message);
+    throw error;
+  }
+}
