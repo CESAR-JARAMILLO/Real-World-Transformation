@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getCommentsByPostId } from '../pages/api/auth';
+import Comment from './Comment';
 
 interface Comment {
   id: string;
@@ -18,22 +19,20 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
 
   useEffect(() => {
     async function fetchComments() {
-  try {
-    const commentsData = await getCommentsByPostId(postId);
+      try {
+        const commentsData = await getCommentsByPostId(postId);
 
-    // Verify that each object in the array matches the Comment type
-    if (Array.isArray(commentsData) && commentsData.every(comment => {
-      return 'id' in comment && 'comment' in comment && 'post_id' in comment && 'user_id' in comment && 'created_at' in comment;
-    })) {
-      setComments(commentsData as Comment[]);
-    } else {
-      console.error('Received invalid comments data:', commentsData);
+        if (Array.isArray(commentsData) && commentsData.every(comment => {
+          return 'id' in comment && 'comment' in comment && 'post_id' in comment && 'user_id' in comment && 'created_at' in comment;
+        })) {
+          setComments(commentsData as Comment[]);
+        } else {
+          console.error('Received invalid comments data:', commentsData);
+        }
+      } catch (error: any) {
+        console.error('Error fetching comments:', error.message);
+      }
     }
-  } catch (error: any) {
-    console.error('Error fetching comments:', error.message);
-  }
-}
-
 
     if (postId) {
       fetchComments();
@@ -48,10 +47,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
     <div>
       <h2>Comments</h2>
       {comments.map((comment) => (
-        <div key={comment.id}>
-          <p>{comment.comment}</p>
-          <small>Commented by: {comment.user_id} at {new Date(comment.created_at).toLocaleString()}</small>
-        </div>
+        <Comment key={comment.id} comment={comment} />
       ))}
     </div>
   );
