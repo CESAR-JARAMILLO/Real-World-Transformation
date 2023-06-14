@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { useUser } from '@supabase/auth-helpers-react';
-import { supabase } from '../lib/supabaseClient';
-import { signIn } from './api/auth'
+import { signIn, signOut } from './api/auth'
+import { useRouter } from 'next/router';
 
 const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const user  = useUser();
+  const router = useRouter()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -23,47 +22,40 @@ const LoginPage = () => {
 
     setEmail('');
     setPassword('');
+
+    router.push('/posts')
   };
 
-  // Redirect if user is already logged in
-  if (user) {
-    // Perform your redirect logic here
-    console.log('User is already logged in:', user.email);
-    // return null; // or render a different component if needed
-  } else if (!user) {
-    console.log('Mo user logged in')
-  }
-
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut()
+    signOut()
   }
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-          autoComplete="username"
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-          autoComplete="current-password"
-        />
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-    <button onClick={handleSignOut}>Sign Out</button>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
+            autoComplete="username"
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+            autoComplete="current-password"
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <button onClick={handleSignOut}>Sign Out</button>
     </>
   );
 };
