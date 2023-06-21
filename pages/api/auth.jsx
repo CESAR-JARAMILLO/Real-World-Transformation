@@ -112,30 +112,37 @@ export async function getCommentsByPostId(postId) {
 
 export async function createComment(postId, comment) {
   try {
-    const user = supabase.auth.getUser();
+    const { data: user, error } = await supabase.auth.getUser();
+
+    if (error) {
+      console.error('Error retrieving user:', error.message);
+      throw error;
+    }
 
     if (!user) {
       throw new Error('Not authenticated');
     }
 
-    const { data, error } = await supabase
+    const { data, error: insertError } = await supabase
       .from('comments')
       .insert([
-        { post_id: postId, comment, user_id: user.id },
+        { post_id: postId, comment, user_id: user.user.id },
       ]);
 
-    if (error) {
-      console.error('Error creating comment:', error.message);
-      throw error;
-    } else {
-      console.log('Comment created successfully:', data);
-      return data;
+    if (insertError) {
+      console.error('Error creating comment:', insertError.message);
+      throw insertError;
     }
+
+    console.log('Comment created successfully:');
+    return data;
   } catch (error) {
     console.error('Error creating comment:', error.message);
     throw error;
   }
 }
+
+
 
 export async function deleteComment(commentId) {
   try {
