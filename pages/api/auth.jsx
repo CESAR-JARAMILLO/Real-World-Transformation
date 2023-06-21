@@ -139,19 +139,22 @@ export async function createComment(postId, comment) {
 
 export async function deleteComment(commentId) {
   try {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('comments')
       .delete()
       .eq('id', commentId);
-    
+
     if (error) {
       console.error('Error deleting comment:', error.message);
       throw error;
     }
 
-    return data;
+    console.log('Deleted comment:', commentId);
+
   } catch (error) {
     console.error('Error deleting comment:', error.message);
     throw error;
   }
 }
+
+
