@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getCommentsByPostId } from '../pages/api/auth';
-import { supabase } from '../lib/supabaseClient'
-import { Session } from '@supabase/supabase-js'
+import { getCommentsByPostId, deleteComment } from '../pages/api/auth';
+import { supabase } from '../lib/supabaseClient';
+import { Session } from '@supabase/supabase-js';
 
 import Comment from './Comment';
 import CommentForm from './CommentForm';
@@ -24,12 +24,12 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
 
   async function getCurrentSession() {
     const { data, error } = await supabase.auth.getSession();
-  
+
     if (error) {
       console.error('Error getting session:', error.message);
       throw error;
     }
-  
+
     return data ? data.session : null;
   }
 
@@ -39,9 +39,18 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
         const commentsData = await getCommentsByPostId(postId);
         const sessionData = await getCurrentSession();
 
-        if (Array.isArray(commentsData) && commentsData.every(comment => {
-          return 'id' in comment && 'comment' in comment && 'post_id' in comment && 'user_id' in comment && 'created_at' in comment;
-        })) {
+        if (
+          Array.isArray(commentsData) &&
+          commentsData.every(comment => {
+            return (
+              'id' in comment &&
+              'comment' in comment &&
+              'post_id' in comment &&
+              'user_id' in comment &&
+              'created_at' in comment
+            );
+          })
+        ) {
           setComments(commentsData as Comment[]);
         } else {
           console.error('Received invalid comments data:', commentsData);
@@ -58,6 +67,20 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
     }
   }, [postId]);
 
+  const handleDelete = async (commentId: string) => {
+    try {
+      await deleteComment(commentId);
+      setComments(prevComments => {
+        if (prevComments === null) {
+          return null;
+        }
+        return prevComments.filter(comment => comment.id !== commentId);
+      });
+    } catch (error: any) {
+      console.error('Error deleting comment:', error.message);
+    }
+  };
+
   if (!comments) {
     return <div>Loading comments...</div>;
   }
@@ -65,8 +88,8 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
   return (
     <div>
       <h2>Comments</h2>
-      {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+      {comments.map(comment => (
+        <Comment key={comment.id} comment={comment} handleDelete={handleDelete} />
       ))}
       {session && <CommentForm postId={postId} />}
     </div>
