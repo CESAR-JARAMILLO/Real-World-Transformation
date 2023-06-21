@@ -23,7 +23,6 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
     }
   };
 
-
   return (
     <div key={comment.id}>
       <p>{comment.comment}</p>
