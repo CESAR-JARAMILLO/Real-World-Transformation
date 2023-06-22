@@ -142,8 +142,6 @@ export async function createComment(postId, comment) {
   }
 }
 
-
-
 export async function deleteComment(commentId) {
   try {
     const { error } = await supabase
@@ -164,4 +162,22 @@ export async function deleteComment(commentId) {
   }
 }
 
+export async function updateComment(commentId, newText) {
+  try {
+    const { data, error } = await supabase
+      .from('comments')
+      .update({ text: newText })
+      .eq('id', commentId);
 
+    if (error) {
+      console.error('Error updating comment:', error.message);
+      throw error;
+    }
+
+    console.log('Comment updated successfully:', data);
+    return data;
+  } catch (error) {
+    console.error('Error updating comment:', error.message);
+    throw error;
+  }
+}
