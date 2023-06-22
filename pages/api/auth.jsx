@@ -48,6 +48,32 @@ export async function signUp(email, password) {
   }
 }
 
+export async function updateUser(email, fullName, username) {
+  try {
+    const { data: authData, error: authError } = await supabase.auth.updateUser({
+      email: email,
+    });
+
+    if (authError) {
+      throw authError;
+    }
+
+    const { data: userData, error: userError } = await supabase.from('profiles').update({
+      full_name: fullName,
+      username: username,
+    }).eq('id', authData.user.id);
+
+    if (userError) {
+      throw userError;
+    }
+
+    return { authData, userData };
+  } catch (error) {
+    console.error('Error updating user:', error.message);
+    throw error;
+  }
+}
+
 export async function getPosts() {
   try {
     const { data, error } = await supabase
