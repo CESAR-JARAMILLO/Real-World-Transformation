@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getPostById } from '../api/auth';
-
+import { Box, Heading, Text, Spinner, VStack } from '@chakra-ui/react';
 import Comments from '../../components/Comments'
 
 type Post = {
@@ -40,24 +40,28 @@ const PostPage = () => {
     }
   }, [id]);
   
-
   if (!post) {
-    return <div>Loading...</div>;
+    return (
+      <VStack mt={10}>
+        <Spinner color="blue.500" size="xl" />
+        <Text>Loading...</Text>
+      </VStack>
+    );
   }
 
   return (
-    <div>
-      <h1>{post.title}</h1>
-      {post.paragraph_1 && <p>{post.paragraph_1}</p>}
-      {post.paragraph_2 && <p>{post.paragraph_2}</p>}
-      {post.paragraph_3 && <p>{post.paragraph_3}</p>}
-      {post.paragraph_4 && <p>{post.paragraph_4}</p>}
-      {post.paragraph_5 && <p>{post.paragraph_5}</p>}
-      <br />
-      <Comments postId={post.id} />
-    </div>
+    <Box p={5} shadow="md" borderWidth={1} borderRadius="md">
+      <Heading as="h1" size="lg">{post.title}</Heading>
+      {post.paragraph_1 && <Text mt={4}>{post.paragraph_1}</Text>}
+      {post.paragraph_2 && <Text mt={4}>{post.paragraph_2}</Text>}
+      {post.paragraph_3 && <Text mt={4}>{post.paragraph_3}</Text>}
+      {post.paragraph_4 && <Text mt={4}>{post.paragraph_4}</Text>}
+      {post.paragraph_5 && <Text mt={4}>{post.paragraph_5}</Text>}
+      <Box mt={5}>
+        <Comments postId={post.id} />
+      </Box>
+    </Box>
   );
-  
 };
 
 export default PostPage;
