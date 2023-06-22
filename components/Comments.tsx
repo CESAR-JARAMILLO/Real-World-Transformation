@@ -81,6 +81,10 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
     }
   };
 
+  const handleSetComments = (newComments: Comment[]) => {
+    setComments(newComments);
+  };
+
   if (!comments) {
     return <div>Loading comments...</div>;
   }
@@ -91,7 +95,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
       {comments.map(comment => (
         <Comment key={comment.id} comment={comment} handleDelete={handleDelete} />
       ))}
-      {session && <CommentForm postId={postId} />}
+      {session && <CommentForm postId={postId} setComments={handleSetComments}  />}
     </div>
   );
 };
