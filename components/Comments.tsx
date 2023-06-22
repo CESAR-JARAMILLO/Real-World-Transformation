@@ -22,6 +22,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
   const [comments, setComments] = useState<Comment[] | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loggedInUserId, setLoggedInUserId] = useState<string>('');
+  const [fetchStatus, setFetchStatus] = useState<'loading' | 'success' | 'error'>('loading');
 
   async function getCurrentSession() {
     const { data, error } = await supabase.auth.getSession();
@@ -53,6 +54,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
           })
         ) {
           setComments(commentsData as Comment[]);
+          setFetchStatus('success');
         } else {
           console.error('Received invalid comments data:', commentsData);
         }
@@ -63,6 +65,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
         }
       } catch (error: any) {
         console.error('Error fetching comments:', error.message);
+        setFetchStatus('error');
       }
     }
 
@@ -105,14 +108,19 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
     setComments(newComments);
   };
 
-  if (!comments) {
+  // Show different messages based on the fetch status
+  if (fetchStatus === 'loading') {
     return <div>Loading comments...</div>;
+  }
+
+  if (fetchStatus === 'error') {
+    return <div>Error fetching comments. Please try again later.</div>;
   }
 
   return (
     <div>
       <h2>Comments</h2>
-      {comments.map(comment => (
+      {comments && comments.map(comment => (
         <Comment
         key={comment.id}
         comment={comment}
@@ -124,6 +132,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
       {session && <CommentForm postId={postId} setComments={handleSetComments}  />}
     </div>
   );
+  
 };
 
 export default Comments;

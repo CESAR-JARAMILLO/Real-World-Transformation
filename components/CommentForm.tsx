@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { createComment, getCommentsByPostId } from '../pages/api/auth';
 import { supabase } from '../lib/supabaseClient';
+import { Box, Button, Textarea, FormControl } from '@chakra-ui/react';
 
 interface CommentFormProps {
   postId: string;
@@ -46,10 +47,14 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, setComments }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea value={comment} onChange={handleCommentChange} />
-      <button type="submit">Submit</button>
-    </form>
+    <Box as="form" onSubmit={handleSubmit} mt={5}>
+      <FormControl>
+        <Textarea value={comment} onChange={handleCommentChange} placeholder="Add a comment" />
+      </FormControl>
+      <Button type="submit" mt={2}>
+        Submit
+      </Button>
+    </Box>
   );
 };
 

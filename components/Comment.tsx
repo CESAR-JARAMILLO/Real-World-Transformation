@@ -1,4 +1,5 @@
 import { MouseEvent, useState } from 'react';
+import { Box, Button, Text, Flex } from '@chakra-ui/react';
 import EditCommentForm from './EditCommentForm';
 
 interface CommentData {
@@ -32,6 +33,10 @@ const Comment: React.FC<CommentProps> = ({ comment, handleDelete, handleEdit, lo
     event.preventDefault();
     setIsEditing(true);
   };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
   
   const handleEditSubmit = async (commentId: string, newText: string) => {
     try {
@@ -45,22 +50,22 @@ const Comment: React.FC<CommentProps> = ({ comment, handleDelete, handleEdit, lo
   const showDeleteButton = loggedInUserId === comment.user_id;
 
   return (
-    <div key={comment.id}>
+    <Box key={comment.id} p={3} shadow="md" borderWidth={1} borderRadius="md" my={3}>
       {isEditing ? (
-        <EditCommentForm comment={comment} handleEdit={handleEditSubmit} />
+        <EditCommentForm comment={comment} handleEdit={handleEditSubmit} handleCancel={handleCancel} />
       ) : (
         <>
-          <p>{comment.comment}</p>
-          <small>Commented by: {comment.user_id} at {new Date(comment.created_at).toLocaleString()}</small>
+          <Text mb={2}>{comment.comment}</Text>
+          <Text fontSize="sm" color="gray.600">Commented by: {comment.user_id} at {new Date(comment.created_at).toLocaleString()}</Text>
           {showDeleteButton && (
-            <>
-              <button onClick={handleDeleteClick}>Delete</button>
-              <button onClick={handleEditClick}>Edit</button>
-            </>
+            <Flex mt={2}>
+              <Button size="sm" onClick={handleDeleteClick} colorScheme="red" mr={2}>Delete</Button>
+              <Button size="sm" onClick={handleEditClick}>Edit</Button>
+            </Flex>
           )}
         </>
       )}
-    </div>
+    </Box>
   );
 };
 

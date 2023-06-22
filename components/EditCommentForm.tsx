@@ -1,8 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { Box, Button, Textarea, FormControl, HStack } from '@chakra-ui/react';
 
 interface EditCommentFormProps {
   comment: Comment;
   handleEdit: (commentId: string, newText: string) => Promise<void>;
+  handleCancel: () => void;
 }
 
 interface Comment {
@@ -13,7 +15,7 @@ interface Comment {
   created_at: string;
 }
 
-const EditCommentForm: React.FC<EditCommentFormProps> = ({ comment, handleEdit }) => {
+const EditCommentForm: React.FC<EditCommentFormProps> = ({ comment, handleEdit, handleCancel }) => {
   const [editedComment, setEditedComment] = useState(comment.comment);
 
   const handleCommentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -26,10 +28,19 @@ const EditCommentForm: React.FC<EditCommentFormProps> = ({ comment, handleEdit }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea value={editedComment} onChange={handleCommentChange} />
-      <button type="submit">Submit</button>
-    </form>
+    <Box as="form" onSubmit={handleSubmit} mt={2}>
+      <FormControl>
+        <Textarea value={editedComment} onChange={handleCommentChange} resize="vertical" />
+      </FormControl>
+      <HStack spacing={4} mt={2}>
+        <Button type="submit">
+          Submit
+        </Button>
+        <Button onClick={handleCancel}>
+          Cancel
+        </Button>
+      </HStack>
+    </Box>
   );
 };
 
