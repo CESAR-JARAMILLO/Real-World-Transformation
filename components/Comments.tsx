@@ -21,6 +21,7 @@ interface CommentsProps {
 const Comments: React.FC<CommentsProps> = ({ postId }) => {
   const [comments, setComments] = useState<Comment[] | null>(null);
   const [session, setSession] = useState<Session | null>(null);
+  const [loggedInUserId, setLoggedInUserId] = useState<string>('');
 
   async function getCurrentSession() {
     const { data, error } = await supabase.auth.getSession();
@@ -57,6 +58,9 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
         }
 
         setSession(sessionData);
+        if (sessionData) {
+          setLoggedInUserId(sessionData.user.id); // Set the logged-in user ID
+        }
       } catch (error: any) {
         console.error('Error fetching comments:', error.message);
       }
@@ -93,7 +97,12 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
     <div>
       <h2>Comments</h2>
       {comments.map(comment => (
-        <Comment key={comment.id} comment={comment} handleDelete={handleDelete} />
+        <Comment
+        key={comment.id}
+        comment={comment}
+        handleDelete={handleDelete}
+        loggedInUserId={loggedInUserId} // Pass loggedInUserId prop
+      />
       ))}
       {session && <CommentForm postId={postId} setComments={handleSetComments}  />}
     </div>

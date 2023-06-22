@@ -1,5 +1,4 @@
 import { MouseEvent } from 'react';
-import { deleteComment } from '../pages/api/auth';
 
 interface CommentData {
   id: string;
@@ -12,9 +11,10 @@ interface CommentData {
 interface CommentProps {
   comment: CommentData;
   handleDelete: (commentId: string) => Promise<void>;
+  loggedInUserId: string; // Add the ID of the logged-in user
 }
 
-const Comment: React.FC<CommentProps> = ({ comment, handleDelete }) => {
+const Comment: React.FC<CommentProps> = ({ comment, handleDelete, loggedInUserId }) => {
   const handleDeleteClick = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
@@ -24,11 +24,15 @@ const Comment: React.FC<CommentProps> = ({ comment, handleDelete }) => {
     }
   };
 
+  const showDeleteButton = loggedInUserId === comment.user_id; // Compare user IDs
+
   return (
     <div key={comment.id}>
       <p>{comment.comment}</p>
       <small>Commented by: {comment.user_id} at {new Date(comment.created_at).toLocaleString()}</small>
-      <button onClick={handleDeleteClick}>Delete</button>
+      {showDeleteButton && (
+        <button onClick={handleDeleteClick}>Delete</button>
+      )}
     </div>
   );
 };
