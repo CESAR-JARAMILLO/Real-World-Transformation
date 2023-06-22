@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getPosts } from '../api/auth';
-import Link from 'next/link';
 import { supabase } from '../../lib/supabaseClient'
 import { Session } from '@supabase/supabase-js'
+import { Box, Heading, Text, Button, VStack } from '@chakra-ui/react'
+import Link from 'next/link';
 
 interface Post {
   id: string;
@@ -22,7 +23,7 @@ const Posts = () => {
       throw error;
     }
   
-    return data ? data.session : null; // Here we return just the session data or null
+    return data ? data.session : null; 
   }
 
   useEffect(() => {
@@ -50,18 +51,18 @@ const Posts = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Posts</h2>
+    <VStack spacing={4}>
+      <Heading as="h2" size="xl" mt={4} mb={4}>Blogs</Heading>
       {posts?.map((post) => (
-        <div key={post.id}>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-          <Link href={`/posts/${post.id}`}>
-            {post.title}
-          </Link>
-        </div>
+        <Box key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" width="sm">
+          <Heading as="h3" size="lg">{post.title}</Heading>
+          <Text mt={4}>{post.content}</Text>
+          <Button as={Link} href={`/posts/${post.id}`} variant="outline" mt={4}>
+            Read More
+          </Button>
+        </Box>
       ))}
-    </div>
+    </VStack>
   );
 };
 
