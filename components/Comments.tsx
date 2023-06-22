@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCommentsByPostId, deleteComment } from '../pages/api/auth';
+import { getCommentsByPostId, deleteComment, updateComment } from '../pages/api/auth';
 import { supabase } from '../lib/supabaseClient';
 import { Session } from '@supabase/supabase-js';
 
@@ -84,6 +84,22 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
       console.error('Error deleting comment:', error.message);
     }
   };
+  
+  const handleEdit = async (commentId: string, newText: string) => {
+    try {
+      await updateComment(commentId, newText);
+      setComments(prevComments => {
+        if (prevComments === null) {
+          return null;
+        }
+        return prevComments.map(comment => comment.id === commentId ? {...comment, comment: newText} : comment);
+      });
+    } catch (error: any) {
+      console.error('Error updating comment:', error.message);
+    }
+};
+
+  
 
   const handleSetComments = (newComments: Comment[]) => {
     setComments(newComments);
@@ -101,7 +117,8 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
         key={comment.id}
         comment={comment}
         handleDelete={handleDelete}
-        loggedInUserId={loggedInUserId} // Pass loggedInUserId prop
+        handleEdit={handleEdit}
+        loggedInUserId={loggedInUserId}
       />
       ))}
       {session && <CommentForm postId={postId} setComments={handleSetComments}  />}

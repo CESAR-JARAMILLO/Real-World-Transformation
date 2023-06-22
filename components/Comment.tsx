@@ -1,4 +1,5 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
+import EditCommentForm from './EditCommentForm';
 
 interface CommentData {
   id: string;
@@ -11,10 +12,13 @@ interface CommentData {
 interface CommentProps {
   comment: CommentData;
   handleDelete: (commentId: string) => Promise<void>;
-  loggedInUserId: string; // Add the ID of the logged-in user
+  handleEdit: (commentId: string, newText: string) => Promise<void>;
+  loggedInUserId: string;
 }
 
-const Comment: React.FC<CommentProps> = ({ comment, handleDelete, loggedInUserId }) => {
+const Comment: React.FC<CommentProps> = ({ comment, handleDelete, handleEdit, loggedInUserId }) => {
+  const [isEditing, setIsEditing] = useState(false);
+
   const handleDeleteClick = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
@@ -23,15 +27,38 @@ const Comment: React.FC<CommentProps> = ({ comment, handleDelete, loggedInUserId
       console.error('Error deleting comment:', error.message);
     }
   };
+  
+  const handleEditClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setIsEditing(true);
+  };
+  
+  const handleEditSubmit = async (commentId: string, newText: string) => {
+    try {
+      await handleEdit(commentId, newText);
+      setIsEditing(false);
+    } catch (error: any) {
+      console.error('Error editing comment:', error.message);
+    }
+  };
 
-  const showDeleteButton = loggedInUserId === comment.user_id; // Compare user IDs
+  const showDeleteButton = loggedInUserId === comment.user_id;
 
   return (
     <div key={comment.id}>
-      <p>{comment.comment}</p>
-      <small>Commented by: {comment.user_id} at {new Date(comment.created_at).toLocaleString()}</small>
-      {showDeleteButton && (
-        <button onClick={handleDeleteClick}>Delete</button>
+      {isEditing ? (
+        <EditCommentForm comment={comment} handleEdit={handleEditSubmit} />
+      ) : (
+        <>
+          <p>{comment.comment}</p>
+          <small>Commented by: {comment.user_id} at {new Date(comment.created_at).toLocaleString()}</small>
+          {showDeleteButton && (
+            <>
+              <button onClick={handleDeleteClick}>Delete</button>
+              <button onClick={handleEditClick}>Edit</button>
+            </>
+          )}
+        </>
       )}
     </div>
   );
