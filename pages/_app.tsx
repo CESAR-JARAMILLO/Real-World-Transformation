@@ -1,10 +1,10 @@
-import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
 
-import Header from '../components/Header'
+import Navbar from '../components/Navbar'
 
 export default function App({
   Component,
@@ -16,12 +16,14 @@ export default function App({
   const [supabaseClient] = useState(() => createPagesBrowserClient())
 
   return (
-    <SessionContextProvider
-      supabaseClient={supabaseClient}
-      initialSession={pageProps.initialSession}
-    >
-      <Header />
-      <Component {...pageProps} />
-    </SessionContextProvider>
+    <ChakraProvider>
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
+        <Navbar />
+        <Component {...pageProps} />
+      </SessionContextProvider>
+    </ChakraProvider>
   )
 }
