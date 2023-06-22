@@ -166,7 +166,7 @@ export async function updateComment(commentId, newText) {
   try {
     const { data, error } = await supabase
       .from('comments')
-      .update({ text: newText })
+      .update({ comment: newText }) // Change 'text' to 'comment'
       .eq('id', commentId);
 
     if (error) {
