@@ -31,15 +31,11 @@ export async function signOut() {
   }
 }
 
-export async function signUp(email, password, first_name) {
+export async function signUp(email, password) {
   try {
     const { user, error } = await supabase.auth.signUp({
       email: email,
       password: password,
-    }, {
-      data: {
-        first_name: first_name,
-      },
     });
 
     if (error) {
