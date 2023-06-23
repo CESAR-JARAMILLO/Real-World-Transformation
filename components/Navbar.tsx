@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient'
 import { Session } from '@supabase/supabase-js'
 import { signOut, getCurrentUserProfile } from '../pages/api/auth'
+import { useRouter } from 'next/router';
 import {
   Box,
   Flex,
@@ -50,6 +51,7 @@ export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [session, setSession] = useState<Session | null>(null);
   const [username, setUsername] = useState('');
+  const router = useRouter()
 
   useEffect(() => {
     async function getCurrentSession() {
@@ -90,6 +92,7 @@ export default function Nav() {
 
   const handleSignOut = async () => {
     signOut()
+    router.push('/login')
   }
 
   const Links = session ? 
