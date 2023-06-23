@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCommentsByPostId, deleteComment, updateComment } from '../pages/api/auth';
 import { supabase } from '../lib/supabaseClient';
 import { Session } from '@supabase/supabase-js';
+import { Box, VStack, Heading, Text, Link } from '@chakra-ui/react';
 
 import Comment from './Comment';
 import CommentForm from './CommentForm';
@@ -118,19 +119,27 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
   }
 
   return (
-    <div>
-      <h2>Comments</h2>
+    <VStack spacing={4} align="stretch">
+      <Heading as="h2" size="lg">Comments</Heading>
       {comments && comments.map(comment => (
         <Comment
-        key={comment.id}
-        comment={comment}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-        loggedInUserId={loggedInUserId}
-      />
+          key={comment.id}
+          comment={comment}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          loggedInUserId={loggedInUserId}
+        />
       ))}
-      {session && <CommentForm postId={postId} setComments={handleSetComments}  />}
-    </div>
+      {session ? (
+        <CommentForm postId={postId} setComments={handleSetComments} />
+      ) : (
+        <Box mt={4}>
+          <Text fontSize="md">
+            Please <Link href="/login" color="teal.500">login</Link> to add a comment.
+          </Text>
+        </Box>
+      )}
+    </VStack>
   );
   
 };
