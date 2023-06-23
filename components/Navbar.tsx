@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient'
 import { Session } from '@supabase/supabase-js'
-import { signOut } from '../pages/api/auth'
+import { signOut, getCurrentUserProfile } from '../pages/api/auth'
 import {
   Box,
   Flex,
@@ -49,6 +49,7 @@ export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [session, setSession] = useState<Session | null>(null);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     async function getCurrentSession() {
@@ -73,6 +74,16 @@ export default function Nav() {
         setSession(session)
       }
     })
+
+    const fetchAndSetUserData = async () => {
+      const userProfile = await getCurrentUserProfile();
+  
+      if (userProfile && userProfile[0]) {
+        setUsername(userProfile[0].username);
+      }
+    };
+  
+    fetchAndSetUserData();
 
     getCurrentSession();
   }, []);
@@ -114,42 +125,44 @@ export default function Nav() {
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rounded={'full'}
-                  variant={'link'}
-                  cursor={'pointer'}
-                  minW={0}
-                >
-                  <Avatar
-                    size={'sm'}
-                    src={'https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'}
-                  />
-                </MenuButton>
-                <MenuList alignItems={'center'}>
-                  <br />
-                  <Center>
+              {session && (
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    rounded={'full'}
+                    variant={'link'}
+                    cursor={'pointer'}
+                    minW={0}
+                  >
                     <Avatar
-                      size={'2xl'}
+                      size={'sm'}
                       src={'https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'}
                     />
-                  </Center>
-                  <br />
-                  <Center>
-                    <p>Username</p>
-                  </Center>
-                  <br />
-                  <MenuDivider />
-                  <MenuItem as={Link} href="/account">Account</MenuItem>
-                  {session ? (
-                    <MenuItem onClick={handleSignOut}>Logout</MenuItem>
-                  ) : (
-                    <MenuItem as={Link} href="/login">Login</MenuItem>
-                  )}
-                   
-                </MenuList>
-              </Menu>
+                  </MenuButton>
+                  <MenuList alignItems={'center'}>
+                    <br />
+                    <Center>
+                      <Avatar
+                        size={'2xl'}
+                        src={'https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'}
+                      />
+                    </Center>
+                    <br />
+                    <Center>
+                      <p>{username}</p>
+                    </Center>
+                    <br />
+                    <MenuDivider />
+                    <MenuItem as={Link} href="/account">Account</MenuItem>
+                    {session ? (
+                      <MenuItem onClick={handleSignOut}>Logout</MenuItem>
+                    ) : (
+                      <MenuItem as={Link} href="/login">Login</MenuItem>
+                    )}
+                    
+                  </MenuList>
+                </Menu>
+              )}
             </Stack>
           </Flex>
         </Flex>
