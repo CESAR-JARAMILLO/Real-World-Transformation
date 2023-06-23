@@ -1,16 +1,27 @@
 import { useState, useEffect } from 'react';
-import { Box, Button, Flex, FormControl, FormLabel, Input, Heading, Center } from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, FormLabel, Input, Heading, Center, VStack, Spinner, Text } from '@chakra-ui/react';
 import { updateUser, getCurrentUser, getCurrentUserProfile } from './api/auth';
+import { supabase } from '../lib/supabaseClient';
+import { Session } from '@supabase/supabase-js'
+import { useRouter } from 'next/router';
 
 const Account = () => {
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter()
 
   useEffect(() => {
     const fetchAndSetUserData = async () => {
       const user = await getCurrentUser();
       const userProfile = await getCurrentUserProfile();
+
+      if (!session) {
+        router.push('/login');
+        return;
+      }
   
       if (user && user.email) {
         setEmail(user.email);
@@ -21,9 +32,29 @@ const Account = () => {
         setUsername(userProfile[0].username);
       }
     };
+
+    async function getCurrentSession() {
+      const { data, error } = await supabase.auth.getSession();
+    
+      if (error) {
+        console.error('Error getting session:', error.message);
+        throw error;
+      }
+
+      if (data && 'session' in data) {
+        setSession(data.session);
+      } else {
+        setSession(null);
+      }
+
+      setLoading(false);
+    }
   
     fetchAndSetUserData();
-  }, []);
+
+    getCurrentSession()
+
+  }, [router]);
   
 
 
@@ -51,6 +82,15 @@ const Account = () => {
       alert('Failed to update user info.');
     }
   };
+
+  if (loading) {
+    return (
+      <VStack mt={10}>
+        <Spinner color="blue.500" size="xl" />
+        <Text>Loading...</Text>
+      </VStack>
+    );
+  }
 
   return (
     <Flex minHeight="100vh" width="full" align="center" justifyContent="center">
