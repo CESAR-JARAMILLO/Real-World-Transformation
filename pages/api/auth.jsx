@@ -48,6 +48,49 @@ export async function signUp(email, password) {
   }
 }
 
+export async function getCurrentUser() {
+  try {
+    const user = (await supabase.auth.getSession()).data.session.user;
+
+    if (!user) {
+      console.log('No user currently logged in.');
+    } else {
+      console.log('Current user:', user);
+    }
+
+    return user;
+  } catch (error) {
+    console.error('Error fetching user:', error.message);
+  }
+}
+
+export async function getCurrentUserProfile() {
+  const user = (await supabase.auth.getSession()).data.session.user;
+
+  if (!user) {
+    console.log('No user currently logged in.');
+    return null;
+  }
+
+  console.log('Current user:', user);
+
+  try {
+    let { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id);
+
+    if (error) {
+      console.error('Error fetching profile:', error.message);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching profile:', error.message);
+  }
+}
+
 export async function updateUser(email, fullName, username) {
   try {
     const { data: authData, error: authError } = await supabase.auth.updateUser({
