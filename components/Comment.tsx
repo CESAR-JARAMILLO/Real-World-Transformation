@@ -1,6 +1,7 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useState, useEffect } from 'react';
 import { Box, Button, Text, Flex } from '@chakra-ui/react';
 import EditCommentForm from './EditCommentForm';
+import { getUsernameFromCommentId } from '../pages/api/auth'
 
 interface CommentData {
   id: string;
@@ -19,6 +20,16 @@ interface CommentProps {
 
 const Comment: React.FC<CommentProps> = ({ comment, handleDelete, handleEdit, loggedInUserId }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [username, setUsername] = useState('Loading...');
+
+  useEffect(() => {
+    async function fetchUsername() {
+      const name = await getUsernameFromCommentId(comment.id);
+      setUsername(name);
+    }
+
+    fetchUsername();
+  }, [comment.id]);
 
   const handleDeleteClick = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -56,7 +67,7 @@ const Comment: React.FC<CommentProps> = ({ comment, handleDelete, handleEdit, lo
       ) : (
         <>
           <Text mb={2}>{comment.comment}</Text>
-          <Text fontSize="sm" color="gray.600">Commented by: {comment.user_id} at {new Date(comment.created_at).toLocaleString()}</Text>
+          <Text fontSize="sm" color="gray.600">Commented by: {username} at {new Date(comment.created_at).toLocaleString()}</Text>
           {showDeleteButton && (
             <Flex mt={2}>
               <Button size="sm" onClick={handleDeleteClick} colorScheme="red" mr={2}>Delete</Button>
