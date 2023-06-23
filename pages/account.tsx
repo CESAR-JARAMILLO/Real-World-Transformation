@@ -10,7 +10,7 @@ const Account = () => {
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const router = useRouter()
 
   useEffect(() => {
@@ -47,14 +47,14 @@ const Account = () => {
         setSession(null);
       }
 
-      setLoading(false);
+      // setLoading(false);
     }
   
     fetchAndSetUserData();
 
     getCurrentSession()
 
-  }, [router]);
+  }, [router, session]);
   
 
 
@@ -83,7 +83,7 @@ const Account = () => {
     }
   };
 
-  if (loading) {
+  if (!session) {
     return (
       <VStack mt={10}>
         <Spinner color="blue.500" size="xl" />

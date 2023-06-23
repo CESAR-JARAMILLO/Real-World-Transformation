@@ -29,13 +29,18 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    signIn(email, password)
+    try {
+        await signIn(email, password);
 
-    setEmail('');
-    setPassword('');
+        setEmail('');
+        setPassword('');
 
-    router.push('/posts')
-  };
+        router.push('/posts');
+    } catch (error) {
+        alert('Failed to sign in.');
+    }
+};
+
 
   const handleSignOut = async () => {
     signOut()
