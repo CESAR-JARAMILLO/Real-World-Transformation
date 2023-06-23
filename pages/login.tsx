@@ -68,7 +68,7 @@ const LoginPage = () => {
           </Button>
         </form>
         <Center marginTop={5}>
-          <Link href="/signup">Don't have an account?</Link>
+          <Link href="/signup">Don&apos;t have an account?</Link>
         </Center>
       </Box>
     </Flex>
