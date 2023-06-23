@@ -173,6 +173,38 @@ export async function getCommentsByPostId(postId) {
   }
 }
 
+export async function getUsernameFromCommentId(commentId) {
+  try {
+    // Fetch the comment with the specified ID
+    let { data: commentData, error: commentError } = await supabase
+      .from('comments')
+      .select('user_id')
+      .eq('id', commentId)
+      .single();
+
+    if (commentError) throw commentError;
+
+    // Extract the user_id from the comment
+    let userId = commentData.user_id;
+
+    // Fetch the user with that ID from the profiles table
+    let { data: userData, error: userError } = await supabase
+      .from('profiles')
+      .select('username')
+      .eq('id', userId)
+      .single();
+
+    if (userError) throw userError;
+
+    // Extract and return the username
+    return userData.username;
+  } catch (error) {
+    console.error('Error fetching username:', error.message);
+    throw error;
+  }
+}
+
+
 export async function createComment(postId, comment) {
   try {
     const { data: user, error } = await supabase.auth.getUser();
