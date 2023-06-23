@@ -54,6 +54,8 @@ const SignUpPage = () => {
     setPassword('');
     setConfirmEmail(''); // Clear confirmation email
     setConfirmPassword(''); // Clear confirmation password
+
+    alert('Sign up successful! Please check your email for a confirmation link.')
   };
 
   return (
