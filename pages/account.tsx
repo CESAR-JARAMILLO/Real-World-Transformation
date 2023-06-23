@@ -10,18 +10,13 @@ const Account = () => {
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
   const [session, setSession] = useState<Session | null>(null);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const router = useRouter()
 
   useEffect(() => {
     const fetchAndSetUserData = async () => {
       const user = await getCurrentUser();
       const userProfile = await getCurrentUserProfile();
-
-      if (!session) {
-        router.push('/login');
-        return;
-      }
   
       if (user && user.email) {
         setEmail(user.email);
@@ -30,6 +25,8 @@ const Account = () => {
       if (userProfile && userProfile[0]) {
         setFullName(userProfile[0].full_name);
         setUsername(userProfile[0].username);
+      } else {
+        router.push('/login')
       }
     };
 
@@ -47,14 +44,14 @@ const Account = () => {
         setSession(null);
       }
 
-      // setLoading(false);
+      setLoading(false);
     }
   
     fetchAndSetUserData();
 
     getCurrentSession()
 
-  }, [router, session]);
+  }, [router]);
   
 
 
