@@ -65,29 +65,27 @@ export async function getCurrentUser() {
 }
 
 export async function getCurrentUserProfile() {
-  const user = (await supabase.auth.getSession()).data.session.user;
-
-  if (!user) {
-    console.log('No user currently logged in.');
-    return null;
-  }
-
-  console.log('Current user:', user);
-
   try {
-    let { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id);
+    const session = await supabase.auth.getSession();
+    if (session.data && session.data.session) {
+      const user = session.data.session.user;
 
-    if (error) {
-      console.error('Error fetching profile:', error.message);
-      return null;
+      if (!user) {
+        console.log('No user currently logged in.');
+      } else {
+        const { data: userProfile, error } = await supabase.from('profiles').select('*').eq('id', user.id);
+        if (error) {
+          console.error('Error fetching profile:', error.message);
+        } else {
+          console.log('User profile:', userProfile);
+          return userProfile;
+        }
+      }
+    } else {
+      console.log('No session available.');
     }
-
-    return data;
   } catch (error) {
-    console.error('Error fetching profile:', error.message);
+    console.error('Error fetching user:', error.message);
   }
 }
 
