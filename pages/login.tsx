@@ -28,18 +28,22 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-        await signIn(email, password);
-
-        setEmail('');
-        setPassword('');
-
-        router.push('/posts');
-    } catch (error) {
-        alert('Failed to sign in.');
+  
+    const { data, error } = await signIn(email, password);
+  
+    if (error) {
+      if (error.message) {
+        alert(`Failed to sign in: ${error.message}`);
+      }
+      return;
     }
-};
+  
+    setEmail('');
+    setPassword('');
+  
+    router.push('/posts');
+  };
+  
 
 
   const handleSignOut = async () => {
@@ -53,14 +57,28 @@ const LoginPage = () => {
           <Heading size="lg">Login</Heading>
         </Center>
         <form onSubmit={handleSubmit}>
-          <FormControl id="email">
+          <FormControl id="email" >
             <FormLabel>Email address</FormLabel>
-            <Input type="email" value={email} onChange={handleEmailChange} autoComplete="username" />
+            <Input 
+              type="email" 
+              value={email} 
+              onChange={handleEmailChange} 
+              autoComplete="username" 
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
+              title="Please enter a valid email address."
+            />
           </FormControl>
 
-          <FormControl id="password" mt={4}>
+          <FormControl id="password" mt={4} >
             <FormLabel>Password</FormLabel>
-            <Input type="password" value={password} onChange={handlePasswordChange} autoComplete="current-password" />
+            <Input 
+              type="password" 
+              value={password} 
+              onChange={handlePasswordChange} 
+              autoComplete="current-password"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+              title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters."
+            />
           </FormControl>
 
           <Button type="submit" width="full" mt={4}>
