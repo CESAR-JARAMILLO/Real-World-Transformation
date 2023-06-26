@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
 import { signUp } from './api/auth';
 import {
   Box,
@@ -15,9 +14,9 @@ import {
 
 const SignUpPage = () => {
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // Added state for password confirmation
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [confirmEmail, setConfirmEmail] = useState(''); // Added state for email confirmation
+  const [confirmEmail, setConfirmEmail] = useState('');
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -52,8 +51,8 @@ const SignUpPage = () => {
 
     setEmail('');
     setPassword('');
-    setConfirmEmail(''); // Clear confirmation email
-    setConfirmPassword(''); // Clear confirmation password
+    setConfirmEmail('');
+    setConfirmPassword('');
 
     alert('Sign up successful! Please check your email for a confirmation link.')
   };
@@ -67,22 +66,50 @@ const SignUpPage = () => {
         <form onSubmit={handleSubmit}>
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input type="email" value={email} onChange={handleEmailChange} autoComplete="username" />
+            <Input 
+              type="email" 
+              value={email} 
+              onChange={handleEmailChange} 
+              autoComplete="username"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              title="Please enter a valid email address."
+            />
           </FormControl>
 
-          <FormControl id="confirm-email" mt={4}> {/* Added email confirmation */}
+          <FormControl id="confirm-email" mt={4}>
             <FormLabel>Confirm Email address</FormLabel>
-            <Input type="email" value={confirmEmail} onChange={handleConfirmEmailChange} autoComplete="username" />
+            <Input 
+              type="email" 
+              value={confirmEmail} 
+              onChange={handleConfirmEmailChange} 
+              autoComplete="username"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              title="Please confirm your email address."
+            />
           </FormControl>
 
           <FormControl id="password" mt={4}>
             <FormLabel>Password</FormLabel>
-            <Input type="password" value={password} onChange={handlePasswordChange} autoComplete="current-password" />
+            <Input 
+              type="password" 
+              value={password} 
+              onChange={handlePasswordChange} 
+              autoComplete="current-password"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters."
+            />
           </FormControl>
 
-          <FormControl id="confirm-password" mt={4}> {/* Added password confirmation */}
+          <FormControl id="confirm-password" mt={4}>
             <FormLabel>Confirm Password</FormLabel>
-            <Input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} autoComplete="current-password" />
+            <Input 
+              type="password" 
+              value={confirmPassword} 
+              onChange={handleConfirmPasswordChange} 
+              autoComplete="current-password"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Please confirm your password."
+            />
           </FormControl>
 
           <Button type="submit" width="full" mt={4}>
