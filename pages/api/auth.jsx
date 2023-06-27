@@ -81,7 +81,7 @@ export async function getCurrentUserProfile() {
   }
 }
 
-export async function updateUser(email, fullName, username) {
+export async function updateUser(email, fullName, username, avatarUrl) {
   try {
     const { data: authData, error: authError } = await supabase.auth.updateUser({
       email: email,
@@ -94,6 +94,7 @@ export async function updateUser(email, fullName, username) {
     const { data: userData, error: userError } = await supabase.from('profiles').update({
       full_name: fullName,
       username: username,
+      avatar_url: avatarUrl
     }).eq('id', authData.user.id);
 
     if (userError) {
