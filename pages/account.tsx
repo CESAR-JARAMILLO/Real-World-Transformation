@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, Flex, FormControl, FormLabel, Input, Heading, Center, VStack, Spinner, Text } from '@chakra-ui/react';
-import { updateUser, getCurrentUser, getCurrentUserProfile, signOut } from './api/auth';
+import { updateUser, getCurrentUser, getCurrentUserProfile, signOut, deleteComments } from './api/auth';
 import { deleteUser } from './api/adminAuth';
 import { supabase } from '../lib/supabaseClient';
 import { Session } from '@supabase/supabase-js'
@@ -86,10 +86,11 @@ const Account = () => {
     if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       try {
         const user = await getCurrentUser();
+        await deleteComments(user?.id);
         await deleteUser(user?.id);
         alert('Account deleted successfully!');
         signOut()
-        router.push('/login'); // redirect user to login page after deletion
+        router.push('/login');
       } catch (error) {
         alert('Failed to delete account.');
       }
