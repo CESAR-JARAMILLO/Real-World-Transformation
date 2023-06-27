@@ -248,6 +248,18 @@ export async function deleteComment(commentId) {
   }
 }
 
+export async function deleteComments(userId) {
+  const { error } = await supabase
+    .from('comments')
+    .delete()
+    .match({ user_id: userId });
+  
+  if (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function updateComment(commentId, newText) {
   try {
     const { data, error } = await supabase
