@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, Flex, FormControl, FormLabel, Input, Heading, Center, VStack, Spinner, Text } from '@chakra-ui/react';
-import { updateUser, getCurrentUser, getCurrentUserProfile } from './api/auth';
+import { updateUser, getCurrentUser, getCurrentUserProfile, signOut } from './api/auth';
+import { deleteUser } from './api/adminAuth';
 import { supabase } from '../lib/supabaseClient';
 import { Session } from '@supabase/supabase-js'
 import { useRouter } from 'next/router';
@@ -81,6 +82,20 @@ const Account = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+      try {
+        const user = await getCurrentUser();
+        await deleteUser(user?.id);
+        alert('Account deleted successfully!');
+        signOut()
+        router.push('/login'); // redirect user to login page after deletion
+      } catch (error) {
+        alert('Failed to delete account.');
+      }
+    }
+  };
+
   if (!session) {
     return (
       <VStack mt={10}>
@@ -114,6 +129,9 @@ const Account = () => {
               Update Profile
             </Button>
           </Box>
+          <Button colorScheme="red" onClick={handleDelete} width="full" mt={4}>
+            Delete Account
+          </Button>
         </Box>
       </Box>
     </Flex>
