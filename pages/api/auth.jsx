@@ -9,7 +9,6 @@ export async function signIn(email, password) {
   return { data, error };
 }
 
-
 export async function signOut() {
   try {
     const { error } = await supabase.auth.signOut();
@@ -196,7 +195,6 @@ export async function getUsernameFromCommentId(commentId) {
     throw error;
   }
 }
-
 
 export async function createComment(postId, comment) {
   try {
