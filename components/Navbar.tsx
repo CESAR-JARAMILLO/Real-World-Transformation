@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabaseClient'
-import { Session } from '@supabase/supabase-js'
-import { signOut, getCurrentUserProfile } from '../pages/api/auth'
+import { supabase } from '../lib/supabaseClient';
+import { Session } from '@supabase/supabase-js';
+import { signOut, getCurrentUserProfile } from '../pages/api/auth';
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -51,60 +51,85 @@ export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [session, setSession] = useState<Session | null>(null);
   const [username, setUsername] = useState('');
-  const router = useRouter()
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     async function getCurrentSession() {
-      const { data, error } = await supabase.auth.getSession();
-    
-      if (error) {
-        console.error('Error getting session:', error.message);
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          throw error;
+        }
+
+        if (data && 'session' in data) {
+          setSession(data.session);
+        } else {
+          setSession(null);
+        }
+      } catch (error) {
+        console.error('Error getting session:', error);
         throw error;
       }
-
-      if (data && 'session' in data) {
-        setSession(data.session);
-      } else {
-        setSession(null);
-      }
     }
-    
+
     supabase.auth.onAuthStateChange((event, session) => {
-      if (event == 'SIGNED_OUT') {
-        setSession(session)
-      } else if (event == 'SIGNED_IN') {
-        setSession(session)
+      if (event === 'SIGNED_OUT') {
+        setSession(session);
+      } else if (event === 'SIGNED_IN') {
+        setSession(session);
       }
-    })
+    });
 
     const fetchAndSetUserData = async () => {
       const userProfile = await getCurrentUserProfile();
-  
       if (userProfile && userProfile[0]) {
         setUsername(userProfile[0].username);
+        setAvatarUrl(userProfile[0].avatar_url);
       }
     };
-  
-    fetchAndSetUserData();
 
     getCurrentSession();
+    fetchAndSetUserData();
   }, []);
 
-  const handleSignOut = async () => {
-    signOut()
-    router.push('/login')
-  }
+  useEffect(() => {
+    async function downloadImage(path: string) {
+      try {
+        const { data, error } = await supabase.storage.from('avatars').download(path);
+        if (error) {
+          throw error;
+        }
+  
+        const url = URL.createObjectURL(data);
+        setBlobUrl(url);
+      } catch (error) {
+        console.log('Error downloading image:', error);
+      }
+    }
+  
+    if (avatarUrl) {
+      downloadImage(avatarUrl);
+    }
+  }, [avatarUrl]);
 
-  const Links = session ? 
-      [
+  const handleSignOut = async () => {
+    signOut();
+    router.push('/login');
+  };
+
+  const Links = session
+    ? [
         { name: 'Home', href: '/' },
         { name: 'Posts', href: '/posts' },
         { name: 'Logout', href: '/login', onClick: handleSignOut },
-      ] : [
+      ]
+    : [
         { name: 'Home', href: '/' },
         { name: 'Posts', href: '/posts' },
         { name: 'Login', href: '/login' },
-      ]
+      ];
 
   return (
     <>
@@ -137,18 +162,12 @@ export default function Nav() {
                     cursor={'pointer'}
                     minW={0}
                   >
-                    <Avatar
-                      size={'sm'}
-                      src={'https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'}
-                    />
+                    <Avatar size={'sm'} src={blobUrl ?? undefined} />
                   </MenuButton>
                   <MenuList alignItems={'center'}>
                     <br />
                     <Center>
-                      <Avatar
-                        size={'2xl'}
-                        src={'https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png'}
-                      />
+                    <Avatar size={'2xl'} src={blobUrl ?? undefined} />
                     </Center>
                     <br />
                     <Center>
@@ -156,13 +175,16 @@ export default function Nav() {
                     </Center>
                     <br />
                     <MenuDivider />
-                    <MenuItem as={Link} href="/account">Account</MenuItem>
+                    <MenuItem as={Link} href="/account">
+                      Account
+                    </MenuItem>
                     {session ? (
                       <MenuItem onClick={handleSignOut}>Logout</MenuItem>
                     ) : (
-                      <MenuItem as={Link} href="/login">Login</MenuItem>
+                      <MenuItem as={Link} href="/login">
+                        Login
+                      </MenuItem>
                     )}
-                    
                   </MenuList>
                 </Menu>
               )}
