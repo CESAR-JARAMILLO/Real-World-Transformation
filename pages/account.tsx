@@ -106,19 +106,19 @@ const Account = () => {
 
   return (
     <Flex minHeight="100vh" width="full" align="center" justifyContent="center" direction="column">
-      <Box borderWidth={1} px={4} width="full" maxWidth="500px" borderRadius={4} textAlign="center" boxShadow="lg">
-        <Box p={4}>
-          <Center marginBottom={5}>
-            <Heading size="lg">Edit Profile</Heading>
-          </Center>
-          <UserAvatar
-            uid={user?.id}
-            url={avatarUrl}
-            size={150}
-            onUpload={(url: SetStateAction<string>) => {
-              setAvatarUrl(url);
-            }}
-          />
+      <Center mb={5} mt={5}>
+        <Heading size="lg">Edit Profile</Heading>
+      </Center>
+      <UserAvatar
+        uid={user?.id}
+        url={avatarUrl}
+        size={150}
+        onUpload={(url: SetStateAction<string>) => {
+          setAvatarUrl(url);
+        }}
+      />
+      <Box width="full" maxWidth="500px" textAlign="center" >
+        <Box p={4}>          
           <Box as="form" onSubmit={handleSubmit}>
             <FormControl id="email" mb={4}>
               <FormLabel>Email</FormLabel>
