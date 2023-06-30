@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Hero from '@/components/HomeComponents/Hero';
+import Categories from '@/components/HomeComponents/Categories';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       </Head>
 
       <Hero />
+      <Categories />
     </>
   );
 }
