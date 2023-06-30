@@ -27,7 +27,7 @@ const Hero = () => {
       >
         {!isLargerThanMD && (
           <Box
-            h="30vh"
+            h="20vh"
             backgroundImage="linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('/images/fitness.jpg')"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
