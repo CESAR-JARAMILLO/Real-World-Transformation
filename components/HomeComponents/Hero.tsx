@@ -33,19 +33,24 @@ const Hero = () => {
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
             width="full"
+            alignItems="center"
           />
         )}
         <VStack
           spacing={4}
-          align="center"
-          justify={isLargerThanMD ? "center" : "start"}
+          align={isLargerThanMD ? "start" : "center"}
+          justify="center"
           color={isLargerThanMD ? "white" : "black"}
-          maxW={{ base: "95%", sm: "75%", md: "65%", lg: "45%" }}
-          textAlign="center"
-          p={8}
+          maxW={{ base: "100%", sm: "100%", md: "75%", lg: "60%" }}
+          textAlign={isLargerThanMD ? "left" : "center"}
+          p={isLargerThanMD ? 6 : 8}
+          marginLeft={isLargerThanMD ? 8 : 0}
         >
-          <Heading as="h1" size={{ base: "xl", sm: "xl", md: "xl", lg: "2xl" }} fontWeight="bold" mb={4}>
-          Realistic Transformations for Real People: Your Source for Health and Fitness Inspiration
+          <Box
+            maxW={{ base: "85%", sm: "65%" }}
+          >
+          <Heading as="h1" size={{ base: "xl", sm: "xl", md: "2xl", lg: "2xl" }} fontWeight="bold" mb={4}>
+          Realistic Transformations for Real People
           </Heading>
           <Text as="h2" lineHeight={1.5} mb={4}>
           Discover realistic transformations and take control of your health and fitness journey today. Our blog is your source of inspiration and practical tips for sustainable change. Join our community and unlock the power within to achieve the life you deserve.
@@ -63,6 +68,7 @@ const Hero = () => {
           >
             Start reading
           </Button>
+          </Box>
         </VStack>
       </Grid>
     </>
