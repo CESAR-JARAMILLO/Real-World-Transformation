@@ -62,7 +62,7 @@ const PostPage = () => {
 
   return (
     <Flex justifyContent="center" alignItems="center" direction="column" mt={5}>
-      <Box maxWidth="800px" w="100%" p={5} shadow="md" borderWidth={1} borderRadius="md">
+      <Box maxWidth="800px" w="100%" p={5}>
         <Heading as="h1" size="xl" mb={4}>{post.title}</Heading>
         {post.main_image_url && 
           <AspectRatio ratio={16 / 9} mb={5}>
