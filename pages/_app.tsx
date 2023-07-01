@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 
 import Navbar from '../components/Navbar'
+import Footer from '@/components/Footer'
 
 export default function App({
   Component,
@@ -23,6 +24,7 @@ export default function App({
       >
         <Navbar />
         <Component {...pageProps} />
+        <Footer />
       </SessionContextProvider>
     </ChakraProvider>
   )
