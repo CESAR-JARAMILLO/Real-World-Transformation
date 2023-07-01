@@ -5,11 +5,11 @@ const Categories = () => {
   const [isLargerThanMD] = useMediaQuery("(min-width: 768px)");
 
   return (
-    <Flex justifyContent="center">
+    <Flex justifyContent="center" mt={isLargerThanMD ? "160px" : "120px"}>
       <Grid
         templateColumns={isLargerThanMD ? "repeat(2, 1fr)" : "1fr"}
         gap={6}
-        m={14}
+        mx={14}
       >
         <Flex direction="column" gap={6}>
           <Box 
