@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Hero from '@/components/HomeComponents/Hero';
 import Categories from '@/components/HomeComponents/Categories';
+import Description from '@/components/HomeComponents/Description';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
 
       <Hero />
       <Categories />
+      <Description />
     </>
   );
 }
