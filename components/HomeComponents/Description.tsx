@@ -21,7 +21,7 @@ const DescriptionItem: React.FC<DescriptionItemProps> = ({ image, title, descrip
 );
 
   return (
-    <Flex justifyContent="center" mt={isLargerThanMD ? "120px" : "60px"}>
+    <Flex justifyContent="center" mt={isLargerThanMD ? "160px" : "120px"}>
       <Grid templateColumns={isLargerThanMD ? "repeat(3, 1fr)" : "1fr"} gap={6} width={isLargerThanMD ? "80%" : "100%"}>
         <DescriptionItem
           image="images/description-image-1.svg"
