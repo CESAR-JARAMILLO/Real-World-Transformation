@@ -3,11 +3,14 @@ import { Box, Flex, Link, Spacer, Text, Icon, VStack, useMediaQuery, useColorMod
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { EmailIcon, PhoneIcon } from '@chakra-ui/icons'; // Importing Chakra UI icons
 
+import FooterOverlay from './FooterOverlay';
+
 const Footer = () => {
   const [isLargerThanMD] = useMediaQuery("(min-width: 768px)");
 
   return (
-    <Box as="footer" role="contentinfo" py={"80px"} px={{ base: '4', md: '8' }} bg={'blackAlpha.900'} color="whiteAlpha.900" textAlign="center">
+    <Box as="footer" role="contentinfo" mt="240px" py={"80px"} pt={{ base: '240px', md: '180px' }} pb={{ base: '4', md: '8' }} bg={'blackAlpha.900'} color="whiteAlpha.900" textAlign="center" position="relative">
+      <FooterOverlay />
       <VStack direction="column" maxW="6xl" mx="auto" px={{ base: '6', md: '8' }} align={isLargerThanMD ? 'stretch' : 'center'} spacing="40px">
         <Flex direction={isLargerThanMD ? 'row' : 'column'} w="100%" justifyContent={isLargerThanMD ? 'space-between' : 'center'} align="center">
           <Box textAlign="center">
