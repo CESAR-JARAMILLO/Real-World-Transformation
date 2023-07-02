@@ -1,5 +1,18 @@
 import { useState, useEffect, SetStateAction } from 'react';
-import { Box, Button, Flex, FormControl, FormLabel, Input, Heading, Center, VStack, Spinner, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  Input,
+  Heading,
+  Center,
+  Link,
+  VStack,
+  Spinner,
+  Text,
+  FormLabel
+} from '@chakra-ui/react';
 import { updateUser, getCurrentUser, getCurrentUserProfile, signOut, deleteComments } from './api/auth';
 import { deleteUser } from './api/adminAuth';
 import { supabase } from '../lib/supabaseClient';
@@ -107,9 +120,7 @@ const Account = () => {
 
   return (
     <Flex minHeight="100vh" width="full" align="center" justifyContent="center" direction="column">
-      <Center mb={5} mt={5}>
-        <Banner title='Edit Profile' subtitle="Upload a photo and enter or edit your information to let other users get to know you!" />
-      </Center>
+      <Banner title='Edit Profile' subtitle="Upload a photo and enter or edit your information to let other users get to know you!" />
       <UserAvatar
         uid={user?.id}
         url={avatarUrl}
@@ -118,29 +129,58 @@ const Account = () => {
           setAvatarUrl(url);
         }}
       />
-      <Box width="full" maxWidth="500px" textAlign="center" >
-        <Box p={4}>          
-          <Box as="form" onSubmit={handleSubmit}>
-            <FormControl id="email" mb={4}>
-              <FormLabel>Email</FormLabel>
-              <Input type="email" value={email} onChange={handleEmailChange} />
-            </FormControl>
-            <FormControl id="fullName" mb={4}>
-              <FormLabel>Full Name</FormLabel>
-              <Input type="text" value={fullName} onChange={handleFullNameChange} />
-            </FormControl>
-            <FormControl id="username" mb={4}>
-              <FormLabel>Username</FormLabel>
-              <Input type="text" value={username} onChange={handleUsernameChange} />
-            </FormControl>
-            <Button type="submit" width="full" mt={4}>
-              Update Profile
-            </Button>
-          </Box>
+      <Box bgColor="#4169E1" borderRadius={20} mt="100px" p={5} py={10} width="sm">
+        <Center marginBottom={5}>
+          <Heading color="white" size="lg">User Information</Heading>
+        </Center>
+        <form onSubmit={handleSubmit}>
+          <FormControl id="email" mb={4}>
+            <Input 
+              type="email" 
+              value={email} 
+              onChange={handleEmailChange} 
+              autoComplete="username" 
+              placeholder="Email address"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
+            />
+          </FormControl>
+          <FormControl id="fullName" mb={4}>
+            <Input 
+              type="text" 
+              value={fullName} 
+              onChange={handleFullNameChange} 
+              placeholder="Full Name"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
+            />
+          </FormControl>
+          <FormControl id="username" mb={4}>
+            <Input 
+              type="text" 
+              value={username} 
+              onChange={handleUsernameChange} 
+              placeholder="Username"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
+            />
+          </FormControl>
+          <Button colorScheme="whiteAlpha" type="submit" width="full" mt={4}>
+            Update Profile
+          </Button>
           <Button colorScheme="red" onClick={handleDelete} width="full" mt={4}>
             Delete Account
           </Button>
-        </Box>
+        </form>
       </Box>
     </Flex>
   );
