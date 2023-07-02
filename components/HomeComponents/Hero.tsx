@@ -58,7 +58,7 @@ const Hero = () => {
           </Box>
         </VStack>
         <Image 
-          src="images/phone2.svg" 
+          src="images/phone.svg" 
           alt="phone" 
           position="absolute" 
           bottom={isLargerThanMD ? "unset" : "10%"} 
