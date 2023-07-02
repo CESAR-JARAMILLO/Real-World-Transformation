@@ -17,15 +17,19 @@ const Hero = () => {
     <>
       <Grid
         templateColumns={isLargerThanMD ? "repeat(2, 1fr)" : "none"}
-        alignItems={isLargerThanMD ? "center" : "start"}
+        alignItems={isLargerThanMD ? "end" : "start"}
         justifyContent="center"
         gap={6}
         minH={isLargerThanMD ? "70vh" : "100vh"}
         bg="#4169E1"
-        px={isLargerThanMD ? "100px" : "24px"}
+        px={isLargerThanMD ? "50px" : "24px"}
         pb="100px"
         position="relative"
-        overflow="hidden" // hide anything beyond the container
+        overflow="hidden"
+        w={isLargerThanMD ? "80vw" : "100vw"}
+        m="auto"
+        mt={isLargerThanMD ? 10 : 2}
+        borderRadius={10}
       >
         <Image src="images/oval.svg" alt="logo" position="absolute" right="0" top={isLargerThanMD ? "50%" : "100%"} transform="translateY(-50%)" w={isLargerThanMD ? "50%" : "100%"} h="100%" objectFit="cover" />
         <VStack
@@ -37,7 +41,7 @@ const Hero = () => {
           textAlign={isLargerThanMD ? "left" : "center"}
         >
           <Box>
-            <Heading as="h1" size={{ base: "xl", sm: "xl", md: "2xl", lg: "2xl" }} fontWeight="bold" mb={4} mt={isLargerThanMD ? "0" : "80px"}>
+            <Heading as="h1" size={{ base: "xl", sm: "xl", md: "xl", lg: "2xl" }} fontWeight="bold" mb={4} mt={isLargerThanMD ? "0" : "80px"}>
               Realistic Transformations for Real People
             </Heading>
             <Text as="h2" lineHeight={1.5} mb={4}>
