@@ -136,7 +136,6 @@ export default function Nav() {
     <>
       <Box bg={useColorModeValue('white', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Image src="/images/logo.svg" alt="logo" display="block" />
           <IconButton
             bgColor={useColorModeValue('white', 'gray.900')}
             size={'md'}
@@ -145,6 +144,7 @@ export default function Nav() {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
+          <Image src="/images/logo.svg" alt="logo" display="block" />
           <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
             {Links.map((link) => (
               <NavLink key={link.name} name={link.name} href={link.href} onClick={link.onClick} />
