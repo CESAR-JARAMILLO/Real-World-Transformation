@@ -7,6 +7,7 @@ import { Session } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 
 import UserAvatar from '@/components/UserAvatar';
+import Banner from '@/components/Banner';
 
 const Account = () => {
   const [email, setEmail] = useState('');
@@ -107,7 +108,7 @@ const Account = () => {
   return (
     <Flex minHeight="100vh" width="full" align="center" justifyContent="center" direction="column">
       <Center mb={5} mt={5}>
-        <Heading size="lg">Edit Profile</Heading>
+        <Banner title='Edit Profile' subtitle="Upload a photo and enter or edit your information to let other users get to know you!" />
       </Center>
       <UserAvatar
         uid={user?.id}
