@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { getPosts } from '../api/auth';
 import { supabase } from '../../lib/supabaseClient'
 import { Session } from '@supabase/supabase-js'
-import { Box, Heading, Text, Button, VStack, Link, Image, Flex, Divider, AspectRatio } from '@chakra-ui/react'
+import { Box, Heading, Text, Button, VStack, Link, Image, Flex, Divider, AspectRatio, useMediaQuery } from '@chakra-ui/react'
+
+import Banner from '../../components/Banner';
 
 interface Post {
   id: string;
@@ -14,6 +16,8 @@ interface Post {
 const Posts = () => {
   const [posts, setPosts] = useState<Post[] | undefined>(undefined);
   const [session, setSession] = useState<Session | null>(null);
+
+  const [isLargerThanMD] = useMediaQuery("(min-width: 768px)");
 
   async function getCurrentSession() {
     const { data, error } = await supabase.auth.getSession();
@@ -54,22 +58,23 @@ const Posts = () => {
   return (
     <VStack spacing={4}>
       <Flex justifyContent="center">
-        <Heading as="h2" size="xl" mt={4} mb={4}>Blogs</Heading>
+        <Banner title='Blogs' subtitle='Enjoy our collection of blogs from a range of different topics.' />
       </Flex>
-      {posts?.map((post) => (
-        <Box key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm">
-          <AspectRatio ratio={16 / 9}>
-            <Image src={post.main_image_url} objectFit="cover" borderRadius="md" />
-          </AspectRatio>
-          <Divider borderWidth={1} mt={4} />
-          <Heading as="h3" size="lg" mt={4}>{post.title}</Heading>
-          <Text mt={4}>{post.content}</Text>
-          <Button colorScheme="blue" as={Link} href={`/posts/${post.id}`} p={6} mt={4}>
-            Read More
-          </Button>
-        </Box>
-      ))}
-      <Divider mt={4} />
+      <Box mt={isLargerThanMD ? "80px" : "50px"}>
+        {posts?.map((post) => (
+          <Box key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm">
+            <AspectRatio ratio={16 / 9}>
+              <Image src={post.main_image_url} objectFit="cover" borderRadius="md" />
+            </AspectRatio>
+            <Divider borderWidth={1} mt={4} />
+            <Heading as="h3" size="lg" mt={4}>{post.title}</Heading>
+            <Text mt={4}>{post.content}</Text>
+            <Button colorScheme="blue" as={Link} href={`/posts/${post.id}`} p={6} mt={4}>
+              Read More
+            </Button>
+          </Box>
+        ))}
+      </Box>
     </VStack>
   );
 };
