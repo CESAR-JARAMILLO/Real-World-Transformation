@@ -5,7 +5,6 @@ import {
   Button,
   Flex,
   FormControl,
-  FormLabel,
   Input,
   Heading,
   Center,
@@ -58,38 +57,47 @@ const SignUpPage = () => {
   };
 
   return (
-    <Flex height="100vh" alignItems="center" justifyContent="center">
-      <Box p={5} shadow="md" borderWidth={1} borderRadius="md" width="sm">
+    <Flex alignItems="center" justifyContent="center">
+      <Box bgColor="#4169E1" borderRadius={20} mt="100px" p={5} py={10} width="sm">
         <Center marginBottom={5}>
-          <Heading size="lg">Sign Up</Heading>
+          <Heading color="white" size="lg">Sign Up</Heading>
         </Center>
         <form onSubmit={handleSubmit}>
-          <FormControl id="email">
-            <FormLabel>Email address</FormLabel>
+          <FormControl id="email" mt={10}>
             <Input 
               type="email" 
               value={email} 
               onChange={handleEmailChange} 
               autoComplete="username"
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
               title="Please enter a valid email address."
+              placeholder="Email address"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
             />
           </FormControl>
 
-          <FormControl id="confirm-email" mt={4}>
-            <FormLabel>Confirm Email address</FormLabel>
+          <FormControl id="confirm-email" mt={10}>
             <Input 
               type="email" 
               value={confirmEmail} 
               onChange={handleConfirmEmailChange} 
               autoComplete="username"
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
               title="Please confirm your email address."
+              placeholder="Confirm Email address"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
             />
           </FormControl>
 
-          <FormControl id="password" mt={4}>
-            <FormLabel>Password</FormLabel>
+          <FormControl id="password" mt={10}>
             <Input 
               type="password" 
               value={password} 
@@ -97,11 +105,16 @@ const SignUpPage = () => {
               autoComplete="current-password"
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters."
+              placeholder="Password"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
             />
           </FormControl>
 
-          <FormControl id="confirm-password" mt={4}>
-            <FormLabel>Confirm Password</FormLabel>
+          <FormControl id="confirm-password" mt={10}>
             <Input 
               type="password" 
               value={confirmPassword} 
@@ -109,15 +122,21 @@ const SignUpPage = () => {
               autoComplete="current-password"
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               title="Please confirm your password."
+              placeholder="Confirm Password"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
             />
           </FormControl>
 
-          <Button type="submit" width="full" mt={4}>
+          <Button colorScheme="whiteAlpha" type="submit" width="full" mt={10}>
             Submit
           </Button>
         </form>
         <Center marginTop={5}>
-          <Link href="/login">Already have an account?</Link>
+          <Link color="white" href="/login">Already have an account?</Link>
         </Center>
       </Box>
     </Flex>
