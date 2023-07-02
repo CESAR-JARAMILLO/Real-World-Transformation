@@ -38,7 +38,7 @@ const NavLink = ({ name, href, onClick }: NavLinkProps) => (
     rounded={'md'}
     _hover={{
       textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
+      bg: useColorModeValue('white', 'gray.900'),
     }}
     href={href}
     onClick={onClick}
@@ -134,9 +134,12 @@ export default function Nav() {
 
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Box bg={useColorModeValue('white', 'gray.900')} px={4}>
+      {/* <Box bg="white" px={4}> */}
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+          <Image src="images/logo.svg" alt="logo" display="block" />
           <IconButton
+            bgColor={useColorModeValue('white', 'gray.900')}
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
@@ -148,10 +151,9 @@ export default function Nav() {
               <NavLink key={link.name} name={link.name} href={link.href} onClick={link.onClick} />
             ))}
           </HStack>
-          <Image src="images/logo.svg" alt="logo" mx="auto" display="block" />
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
-              <Button onClick={toggleColorMode}>
+              <Button bgColor={useColorModeValue('white', 'gray.900')} onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
               {session && (
