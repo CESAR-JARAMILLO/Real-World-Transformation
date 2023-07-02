@@ -1,5 +1,6 @@
+import React, { useRef } from 'react';
 import { useState, useEffect, SetStateAction } from 'react';
-import { Box, Button, Center, Avatar, Spinner } from '@chakra-ui/react';
+import { Box, Button, Center, Avatar, Spinner, Input, useMediaQuery, Flex, VStack, Card } from '@chakra-ui/react';
 import { supabase } from '../lib/supabaseClient';
 
 interface UserAvatarProps {
@@ -12,6 +13,9 @@ interface UserAvatarProps {
 export default function UserAvatar({ uid, url, size, onUpload }: UserAvatarProps) {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [isLargerThanMD] = useMediaQuery("(min-width: 768px)");
 
   useEffect(() => {
     async function downloadImage(path: string) {
@@ -58,23 +62,29 @@ export default function UserAvatar({ uid, url, size, onUpload }: UserAvatarProps
     }
   };
 
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
   const sizeValue = typeof size === 'number' ? `${size}px` : size;
 
   return (
-    <Box>
-      <Box>
-        {avatarUrl ? (
-          <Avatar name="Avatar" src={avatarUrl} size={sizeValue} />
-        ) : (
-          <Box className="avatar no-image" h={sizeValue} w={sizeValue} />
-        )}
-        <Center mt={4}>
+    <Flex justify="center" mt={isLargerThanMD ? "80px" : "50px"}>
+      <Box bgColor="#4169E1" p={10} maxW="sm" borderRadius="25%" overflow="hidden">
+        <VStack spacing={4} align="center" p={6}>
+          {avatarUrl ? (
+            <Avatar name="Avatar" src={avatarUrl} size={sizeValue} />
+          ) : (
+            <Box className="avatar no-image" h={sizeValue} w={sizeValue} />
+          )}
           <Button
             className="button primary"
-            as="label"
-            htmlFor="single"
+            onClick={handleButtonClick}
             disabled={uploading}
             variant={uploading ? 'disabled' : 'solid'}
+            colorScheme="whiteAlpha"
+            p={6}
+            mt={4}
           >
             {uploading ? (
               <>
@@ -82,22 +92,20 @@ export default function UserAvatar({ uid, url, size, onUpload }: UserAvatarProps
                 Uploading ...
               </>
             ) : (
-              'Upload'
+              'Upload Image'
             )}
           </Button>
-        </Center>
-        <input
-          style={{
-            visibility: 'hidden',
-            position: 'absolute',
-          }}
-          type="file"
-          id="single"
-          accept="image/*"
-          onChange={uploadAvatar}
-          disabled={uploading}
-        />
+        </VStack>
       </Box>
-    </Box>
+      <Input
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        type="file"
+        id="single"
+        accept="image/*"
+        onChange={uploadAvatar}
+        disabled={uploading}
+      />
+    </Flex>
   );
 }
