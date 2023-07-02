@@ -21,7 +21,8 @@ import {
   Center,
   IconButton,
   HStack,
-  Image
+  Image,
+  Text
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
@@ -166,24 +167,49 @@ export default function Nav() {
                   >
                     <Avatar size={'sm'} src={blobUrl ?? undefined} />
                   </MenuButton>
-                  <MenuList alignItems={'center'}>
+                  <MenuList
+                    bg="#4169E1"
+                  >
                     <br />
                     <Center>
-                    <Avatar size={'2xl'} src={blobUrl ?? undefined} />
+                      <Avatar size={'2xl'} src={blobUrl ?? undefined} />
                     </Center>
                     <br />
                     <Center>
-                      <p>{username}</p>
+                      <Text color="white">{username}</Text>
                     </Center>
                     <br />
                     <MenuDivider />
-                    <MenuItem as={Link} href="/account">
+                    <MenuItem
+                      as={Link}
+                      href="/account"
+                      bg="#4169E1"
+                      color="white"
+                      _hover={{
+                        bg: useColorModeValue('whiteAlpha.200', 'whiteAlpha.100'),
+                      }}
+                    >
                       Account
                     </MenuItem>
                     {session ? (
-                      <MenuItem onClick={handleSignOut}>Logout</MenuItem>
+                      <MenuItem
+                        onClick={handleSignOut}
+                        bg="#4169E1"
+                        color="white"
+                        _hover={{
+                          bg: useColorModeValue('whiteAlpha.200', 'whiteAlpha.100'),
+                        }}
+                      >
+                        Logout
+                      </MenuItem>
                     ) : (
-                      <MenuItem as={Link} href="/login">
+                      <MenuItem
+                        as={Link}
+                        href="/login"
+                        _hover={{
+                          bg: useColorModeValue('gray.200', 'whiteAlpha.100'),
+                        }}
+                      >
                         Login
                       </MenuItem>
                     )}
