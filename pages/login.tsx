@@ -6,7 +6,6 @@ import {
   Button,
   Flex,
   FormControl,
-  FormLabel,
   Input,
   Heading,
   Center,
@@ -43,22 +42,19 @@ const LoginPage = () => {
   
     router.push('/posts');
   };
-  
-
 
   const handleSignOut = async () => {
     signOut()
   }
 
   return (
-    <Flex height="100vh" alignItems="center" justifyContent="center">
-      <Box p={5} shadow="md" borderWidth={1} borderRadius="md" width="sm">
+    <Flex alignItems="center" justifyContent="center">
+      <Box bgColor="#4169E1" borderRadius={20} mt="100px" p={5} py={10} width="sm">
         <Center marginBottom={5}>
-          <Heading size="lg">Login</Heading>
+          <Heading color="white" size="lg">Login</Heading>
         </Center>
         <form onSubmit={handleSubmit}>
-          <FormControl id="email" >
-            <FormLabel>Email address</FormLabel>
+          <FormControl id="email"  mt={10}>
             <Input 
               type="email" 
               value={email} 
@@ -66,11 +62,16 @@ const LoginPage = () => {
               autoComplete="username" 
               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
               title="Please enter a valid email address."
+              placeholder="Email address"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
             />
           </FormControl>
 
-          <FormControl id="password" mt={4} >
-            <FormLabel>Password</FormLabel>
+          <FormControl id="password" mt={10} >
             <Input 
               type="password" 
               value={password} 
@@ -78,15 +79,21 @@ const LoginPage = () => {
               autoComplete="current-password"
               // pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters."
+              placeholder="Password"
+              border="none"
+              borderBottom="1px solid white"
+              borderRadius="0"
+              color="white"
+              _placeholder={{ color: 'white' }}
             />
           </FormControl>
 
-          <Button type="submit" width="full" mt={4}>
+          <Button colorScheme="whiteAlpha" type="submit" width="full" mt={10}>
             Submit
           </Button>
         </form>
         <Center marginTop={5}>
-          <Link href="/signup">Don&apos;t have an account?</Link>
+          <Link color="white" href="/signup">Don&apos;t have an account?</Link>
         </Center>
       </Box>
     </Flex>
