@@ -14,7 +14,7 @@ const Footer = () => {
       <VStack direction="column" maxW="6xl" mx="auto" px={{ base: '6', md: '8' }} align={isLargerThanMD ? 'stretch' : 'center'} spacing="40px">
         <Flex direction={isLargerThanMD ? 'row' : 'column'} w="100%" justifyContent={isLargerThanMD ? 'space-between' : 'center'} align="center">
           <Box textAlign="center">
-          <Image src="images/logo.svg" alt="logo" mx="auto" display="block" />
+          <Image src="/images/logo.svg" alt="logo" mx="auto" display="block" />
             {!isLargerThanMD && <Divider borderColor="whiteAlpha.400" my="32px" w="320px" />}
           </Box>
           <Flex direction={{ base: 'column', md: 'row' }} mt={{ base: '0', md: '0' }} gap={{ base: 6, md: 20 }} textAlign="center">
