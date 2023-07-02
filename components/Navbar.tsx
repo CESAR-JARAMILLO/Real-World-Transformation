@@ -135,7 +135,7 @@ export default function Nav() {
   return (
     <>
       <Box bg={useColorModeValue('white', 'gray.900')} px={4}>
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-around'}>
           <IconButton
             bgColor={useColorModeValue('white', 'gray.900')}
             size={'md'}
