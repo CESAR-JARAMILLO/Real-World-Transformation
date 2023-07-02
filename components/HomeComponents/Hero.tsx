@@ -35,7 +35,6 @@ const Hero = () => {
           color="white"
           maxW={{ base: "100%", sm: "100%", md: "75%", lg: "60%" }}
           textAlign={isLargerThanMD ? "left" : "center"}
-          zIndex={1} // Provide positive z-index here
         >
           <Box>
             <Heading as="h1" size={{ base: "xl", sm: "xl", md: "2xl", lg: "2xl" }} fontWeight="bold" mb={4} mt={isLargerThanMD ? "0" : "80px"}>
