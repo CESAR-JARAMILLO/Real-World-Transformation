@@ -20,7 +20,8 @@ import {
   useColorMode,
   Center,
   IconButton,
-  HStack
+  HStack,
+  Image
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
@@ -147,7 +148,7 @@ export default function Nav() {
               <NavLink key={link.name} name={link.name} href={link.href} onClick={link.onClick} />
             ))}
           </HStack>
-          <Box>Real World Transformation</Box>
+          <Image src="images/logo.svg" alt="logo" mx="auto" display="block" />
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
               <Button onClick={toggleColorMode}>
