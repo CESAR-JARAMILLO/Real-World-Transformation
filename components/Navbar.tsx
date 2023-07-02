@@ -30,16 +30,17 @@ interface NavLinkProps {
   name: string;
   href: string;
   onClick?: () => void;
+  hoverBgColor: string;
 }
 
-const NavLink = ({ name, href, onClick }: NavLinkProps) => (
+const NavLink = ({ name, href, onClick, hoverBgColor }: NavLinkProps) => (
   <Link
     px={2}
     py={1}
     rounded={'md'}
     _hover={{
       textDecoration: 'none',
-      bg: useColorModeValue('white', 'gray.900'),
+      bg: hoverBgColor,
     }}
     href={href}
     onClick={onClick}
@@ -51,6 +52,7 @@ const NavLink = ({ name, href, onClick }: NavLinkProps) => (
 export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const hoverBgColor = useColorModeValue('white', 'gray.900');
   const [session, setSession] = useState<Session | null>(null);
   const [username, setUsername] = useState('');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -133,6 +135,11 @@ export default function Nav() {
         { name: 'Login', href: '/login' },
       ];
 
+  const menuItemHoverBgColor = useColorModeValue('whiteAlpha.200', 'whiteAlpha.100');
+  const menuItemColor = session ? 'white' : 'gray.900';
+  const menuItemBgColor = session ? '#4169E1' : 'white';
+  const menuListBgColor = session ? '#4169E1' : 'white';
+
   return (
     <>
       <Box bg={useColorModeValue('white', 'gray.900')} px={4}>
@@ -148,7 +155,7 @@ export default function Nav() {
           <Image src="/images/logo.svg" alt="logo" display="block" />
           <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
             {Links.map((link) => (
-              <NavLink key={link.name} name={link.name} href={link.href} onClick={link.onClick} />
+              <NavLink key={link.name} name={link.name} href={link.href} onClick={link.onClick} hoverBgColor={hoverBgColor} />
             ))}
           </HStack>
           <Flex alignItems={'center'}>
@@ -167,9 +174,7 @@ export default function Nav() {
                   >
                     <Avatar size={'sm'} src={blobUrl ?? undefined} />
                   </MenuButton>
-                  <MenuList
-                    bg="#4169E1"
-                  >
+                  <MenuList bg={menuListBgColor}>
                     <br />
                     <Center>
                       <Avatar size={'2xl'} src={blobUrl ?? undefined} />
@@ -183,10 +188,10 @@ export default function Nav() {
                     <MenuItem
                       as={Link}
                       href="/account"
-                      bg="#4169E1"
-                      color="white"
+                      color={menuItemColor}
+                      bg={menuItemBgColor}
                       _hover={{
-                        bg: useColorModeValue('whiteAlpha.200', 'whiteAlpha.100'),
+                        bg: menuItemHoverBgColor,
                       }}
                     >
                       Account
@@ -194,10 +199,10 @@ export default function Nav() {
                     {session ? (
                       <MenuItem
                         onClick={handleSignOut}
-                        bg="#4169E1"
-                        color="white"
+                        color={menuItemColor}
+                        bg={menuItemBgColor}
                         _hover={{
-                          bg: useColorModeValue('whiteAlpha.200', 'whiteAlpha.100'),
+                          bg: menuItemHoverBgColor,
                         }}
                       >
                         Logout
@@ -206,8 +211,10 @@ export default function Nav() {
                       <MenuItem
                         as={Link}
                         href="/login"
+                        color={menuItemColor}
+                        bg={menuItemBgColor}
                         _hover={{
-                          bg: useColorModeValue('gray.200', 'whiteAlpha.100'),
+                          bg: menuItemHoverBgColor,
                         }}
                       >
                         Login
@@ -223,7 +230,7 @@ export default function Nav() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link.name} name={link.name} href={link.href} onClick={link.onClick} />
+                <NavLink key={link.name} name={link.name} href={link.href} onClick={link.onClick} hoverBgColor={hoverBgColor} />
               ))}
             </Stack>
           </Box>
