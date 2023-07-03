@@ -25,6 +25,7 @@ const ImageTextBox: React.FC<ImageTextBoxProps> = ({
     <>
       {isLargerThanMD ? (
         <Flex
+          position="relative"
           direction={isTextOnLeft ? "row" : "row-reverse"}
           borderRadius={20}
           bgColor={backgroundColor}
@@ -38,6 +39,26 @@ const ImageTextBox: React.FC<ImageTextBoxProps> = ({
             <Heading mb={8}>{header}</Heading>
             <Text mb={6}>{bodyTextOne}</Text>
             <Text>{bodyTextTwo}</Text>
+            <Image 
+              src="/images/oval.svg" 
+              alt="oval" 
+              position="absolute"
+              top="50%"
+              left={isTextOnLeft ? "20%" : "80%"}
+              transform="translate(-50%, -50%)"
+              height="80%"
+              width="100%"
+            />
+            <Image 
+              src="/images/oval.svg" 
+              alt="oval" 
+              position="absolute"
+              top="70%"
+              right={isTextOnLeft ? "-50%" : "80%"}
+              transform="translate(-50%, -50%) rotate(180deg)"
+              height="50%"
+              width="100%"
+            />
           </Box>
           <Box w="40%">
             <Image src={imageUrl} alt={header} objectFit="cover" h="100%"/>
@@ -45,6 +66,7 @@ const ImageTextBox: React.FC<ImageTextBoxProps> = ({
         </Flex>
       ) : (
         <Flex
+          position="relative"
           direction="column-reverse"
           borderRadius={{ base: 0, sm: 20 }}
           bgColor={backgroundColor}
@@ -58,6 +80,26 @@ const ImageTextBox: React.FC<ImageTextBoxProps> = ({
             <Heading mb={4}>{header}</Heading>
             <Text mb={3}>{bodyTextOne}</Text>
             <Text>{bodyTextTwo}</Text>
+            <Image 
+              src="/images/oval.svg" 
+              alt="oval" 
+              position="absolute"
+              top="80%"
+              left="50%"
+              transform="translate(-20%, -40%) rotate(180deg)"
+              height="50%"
+              width="100%"
+            />
+            <Image 
+              src="/images/oval.svg" 
+              alt="oval" 
+              position="absolute"
+              top="50%"
+              left="-10%"
+              transform="translate(-20%, -40%) rotate(180deg)"
+              height="30%"
+              width="100%"
+            />
           </Box>
           <Box h="100%">
             <Image src={imageUrl} alt={header} objectFit="cover"/>
