@@ -4,7 +4,7 @@ const About = () => {
   return (
     <>
       <ImageTextBox 
-        imageUrl={'/images/fitness.jpg'}
+        imageUrl={'/images/about-image-1.png'}
         backgroundColor="#4169E1"
         textColor="white"
         header="About Us"
@@ -14,7 +14,7 @@ const About = () => {
       />
       
       <ImageTextBox 
-        imageUrl={'/images/fitness.jpg'}
+        imageUrl={'/images/about-image-2.png'}
         backgroundColor="#214CCE"
         textColor="white"
         header="World-class talent"

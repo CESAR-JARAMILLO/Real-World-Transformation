@@ -61,7 +61,7 @@ const ImageTextBox: React.FC<ImageTextBoxProps> = ({
             />
           </Box>
           <Box w="40%">
-            <Image src={imageUrl} alt={header} objectFit="cover" h="100%"/>
+            <Image src={imageUrl} alt={header} objectFit="cover" w="100%" h="100%"/>
           </Box>
         </Flex>
       ) : (
@@ -102,7 +102,7 @@ const ImageTextBox: React.FC<ImageTextBoxProps> = ({
             />
           </Box>
           <Box h="100%">
-            <Image src={imageUrl} alt={header} objectFit="cover"/>
+            <Image src={imageUrl} alt={header} objectFit="cover" h={{ base: "300px", sm: "400px"}} w="100%"/>
           </Box>
         </Flex>
       )}
