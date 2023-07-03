@@ -56,20 +56,20 @@ const Posts = () => {
   }, []);
 
   return (
-    <VStack spacing={4}>
+    <VStack>
       <Flex justifyContent="center">
         <Banner title='Blogs' subtitle='Enjoy our collection of blogs from a range of different topics.' />
       </Flex>
       <Box mt={isLargerThanMD ? "80px" : "50px"}>
         {posts?.map((post) => (
-          <Box key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm">
+          <Box bgColor="#214CCE" color="white" key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm" mt={10}>
             <AspectRatio ratio={16 / 9}>
               <Image src={post.main_image_url} objectFit="cover" borderRadius="md" />
             </AspectRatio>
             <Divider borderWidth={1} mt={4} />
             <Heading as="h3" size="lg" mt={4}>{post.title}</Heading>
             <Text mt={4}>{post.content}</Text>
-            <Button colorScheme="blue" as={Link} href={`/posts/${post.id}`} p={6} mt={4}>
+            <Button colorScheme="whiteAlpha" as={Link} href={`/posts/${post.id}`} p={6} mt={4}>
               Read More
             </Button>
           </Box>
