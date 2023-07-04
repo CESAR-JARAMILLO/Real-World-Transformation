@@ -9,12 +9,17 @@ import {
   Input,
   Heading,
   Center,
-  Link
+  Link,
+  Alert,
+  AlertIcon
 } from '@chakra-ui/react';
 
 const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | boolean>(false);
+
   const router = useRouter()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,11 +37,12 @@ const LoginPage = () => {
   
     if (error) {
       if (error.message) {
-        alert(`Failed to sign in: ${error.message}`);
+        setErrorMessage(`Failed to sign in: ${error.message}`)
       }
       return;
     }
   
+    setSuccessMessage(true)
     setEmail('');
     setPassword('');
   
@@ -50,6 +56,18 @@ const LoginPage = () => {
   return (
     <Flex alignItems="center" justifyContent="center">
       <Box bgColor="#4169E1" borderRadius={20} mt="100px" p={5} py={10} width="sm">
+        {errorMessage && (
+          <Alert borderRadius={20} mb={5} status='error'>
+            <AlertIcon />
+            {errorMessage}
+          </Alert>
+        )}
+        {successMessage && (
+          <Alert borderRadius={20} mb={5} status='success'>
+            <AlertIcon />
+            Login successfull!
+          </Alert>
+        )}
         <Center marginBottom={5}>
           <Heading color="white" size="lg">Login</Heading>
         </Center>
