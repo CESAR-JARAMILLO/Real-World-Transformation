@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getPosts } from '../api/auth';
 import { supabase } from '../../lib/supabaseClient'
 import { Session } from '@supabase/supabase-js'
 import { Box, Heading, Text, Button, VStack, Link, Image, Flex, Divider, AspectRatio, useMediaQuery, Badge } from '@chakra-ui/react'
 
 import Banner from '../../components/Banner';
+import {SearchPosts} from '../../components/SearchPosts'
+import { getPosts } from '../api/auth';
 
 interface Post {
   id: string;
@@ -30,6 +31,29 @@ const Posts = () => {
   
     return data ? data.session : null; 
   }
+
+  const handleSearch = async (category: string) => {
+    const { data: postsData, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('category', category);
+
+    if (error) {
+      console.error('Error fetching posts:', error.message);
+    }
+
+    if (Array.isArray(postsData)) {
+      const convertedPosts = postsData.map((postData: any) => ({
+        id: postData.id,
+        title: postData.title,
+        content: postData.paragraph_1.substring(0, 200),
+        main_image_url: postData.main_image_url,
+        category: postData.category
+      })) as Post[];
+      
+      setPosts(convertedPosts);
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -62,7 +86,8 @@ const Posts = () => {
       <Flex justifyContent="center">
         <Banner title='Blogs' subtitle='Enjoy our collection of blogs from a range of different topics.' />
       </Flex>
-      <Box mt={isLargerThanMD ? "80px" : "50px"}>
+      <SearchPosts onSearch={handleSearch} />
+      <Box mt={isLargerThanMD ? "50px" : "30px"}>
         {posts?.map((post) => (
           <Box bgColor="#214CCE" color="white" key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm" mt={10}>
             <AspectRatio ratio={16 / 9}>
