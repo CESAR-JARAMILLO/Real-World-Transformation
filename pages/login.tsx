@@ -42,6 +42,7 @@ const LoginPage = () => {
       return;
     }
   
+    setErrorMessage(null)
     setSuccessMessage(true)
     setEmail('');
     setPassword('');
