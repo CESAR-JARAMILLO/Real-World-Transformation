@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { getPosts } from '../api/auth';
 import { supabase } from '../../lib/supabaseClient'
 import { Session } from '@supabase/supabase-js'
-import { Box, Heading, Text, Button, VStack, Link, Image, Flex, Divider, AspectRatio, useMediaQuery } from '@chakra-ui/react'
+import { Box, Heading, Text, Button, VStack, Link, Image, Flex, Divider, AspectRatio, useMediaQuery, Badge } from '@chakra-ui/react'
 
 import Banner from '../../components/Banner';
 
 interface Post {
   id: string;
   title: string;
+  category: string;
   content: string;
   main_image_url: string;
 }
@@ -41,7 +42,8 @@ const Posts = () => {
             id: postData.id,
             title: postData.title,
             content: postData.paragraph_1.substring(0, 200),
-            main_image_url: postData.main_image_url
+            main_image_url: postData.main_image_url,
+            category: postData.category
           })) as Post[];
           setPosts(convertedPosts);
         }
@@ -67,6 +69,7 @@ const Posts = () => {
               <Image src={post.main_image_url} objectFit="cover" borderRadius="md" />
             </AspectRatio>
             <Divider borderWidth={1} mt={4} />
+            <Badge mt={3} py={1} px={2} borderRadius={20} variant="solid" colorScheme='whiteAlpha'>{post.category}</Badge>
             <Heading as="h3" size="lg" mt={4}>{post.title}</Heading>
             <Text mt={4}>{post.content}</Text>
             <Button colorScheme="whiteAlpha" as={Link} href={`/posts/${post.id}`} p={6} mt={4}>
