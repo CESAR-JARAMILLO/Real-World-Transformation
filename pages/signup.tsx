@@ -8,7 +8,9 @@ import {
   Input,
   Heading,
   Center,
-  Link
+  Link,
+  Alert,
+  AlertIcon
 } from '@chakra-ui/react';
 
 const SignUpPage = () => {
@@ -16,6 +18,8 @@ const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | boolean>(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -37,12 +41,12 @@ const SignUpPage = () => {
     e.preventDefault();
 
     if(email !== confirmEmail) {
-      alert('Emails do not match!');
+      setErrorMessage('Emails do not match!');
       return;
     }
 
     if(password !== confirmPassword) {
-      alert('Passwords do not match!');
+      setErrorMessage('Passwords do not match!');
       return;
     }
 
@@ -53,12 +57,25 @@ const SignUpPage = () => {
     setConfirmEmail('');
     setConfirmPassword('');
 
-    alert('Sign up successful! Please check your email for a confirmation link.')
+    setErrorMessage(null)
+    setSuccessMessage('Sign up successful! Please check your email for a confirmation link.')
   };
 
   return (
     <Flex alignItems="center" justifyContent="center">
       <Box bgColor="#4169E1" borderRadius={20} mt="100px" p={5} py={10} width="sm">
+      {errorMessage && (
+          <Alert borderRadius={20} mb={5} status='error'>
+            <AlertIcon />
+            {errorMessage}
+          </Alert>
+        )}
+        {successMessage && (
+          <Alert borderRadius={20} mb={5} status='success'>
+            <AlertIcon />
+            {successMessage}
+          </Alert>
+        )}
         <Center marginBottom={5}>
           <Heading color="white" size="lg">Sign Up</Heading>
         </Center>
