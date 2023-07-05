@@ -97,7 +97,7 @@ const Posts = () => {
             <Badge mt={3} py={1} px={2} borderRadius={20} variant="solid" colorScheme='whiteAlpha'>{post.category}</Badge>
             <Heading as="h3" size="lg" mt={4}>{post.title}</Heading>
             <Text mt={4}>{post.content}</Text>
-            <Button colorScheme="whiteAlpha" as={Link} href={`/posts/${post.id}`} p={6} mt={4}>
+            <Button colorScheme="whiteAlpha" as={Link} href={`/blogs/${post.id}`} p={6} mt={4}>
               Read More
             </Button>
           </Box>

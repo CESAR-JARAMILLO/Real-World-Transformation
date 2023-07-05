@@ -53,7 +53,7 @@ const Hero = () => {
               borderRadius="10px"
               p={6}
               size="md"
-              href="/posts"
+              href="/blogs"
               width='50%'
             >
               Start reading

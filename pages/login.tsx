@@ -47,7 +47,7 @@ const LoginPage = () => {
     setEmail('');
     setPassword('');
   
-    router.push('/posts');
+    router.push('/blogs');
   };
 
   const handleSignOut = async () => {

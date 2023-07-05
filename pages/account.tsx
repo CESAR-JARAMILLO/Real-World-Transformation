@@ -88,7 +88,7 @@ const Account = () => {
       setFullName('');
       setUsername('');
       alert('Update successful!');
-      router.push('/posts');
+      router.push('/blogs');
     } catch (error) {
       alert('Failed to update user info.');
     }

@@ -126,13 +126,13 @@ export default function Nav() {
   const Links = session
     ? [
         { name: 'Home', href: '/' },
-        { name: 'Posts', href: '/posts' },
+        { name: 'Blogs', href: '/blogs' },
         { name: 'About', href: '/about' },
         { name: 'Logout', href: '/login', onClick: handleSignOut },
       ]
     : [
         { name: 'Home', href: '/' },
-        { name: 'Posts', href: '/posts' },
+        { name: 'Blogs', href: '/blogs' },
         { name: 'About', href: '/about' },
         { name: 'Login', href: '/login' },
       ];
