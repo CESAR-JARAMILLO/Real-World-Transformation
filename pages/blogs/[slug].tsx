@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getPostById } from '../api/auth';
+import { getPostBySlug } from '../api/auth';
 import { Box, Heading, Text, Spinner, VStack, Image, Flex, AspectRatio, Divider } from '@chakra-ui/react';
 import Comments from '../../components/Comments';
 
 type Post = {
   id: string;
+  slug: string;
   title: string;
   paragraph_1: string | null;
   paragraph_2: string | null;
@@ -27,13 +28,13 @@ type Post = {
 
 const PostPage = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { slug } = router.query;
   const [post, setPost] = useState<Post | null>(null);
 
   useEffect(() => {
     async function fetchPost() {
       try {
-        const postData = await getPostById(id as string);
+        const postData = await getPostBySlug(slug as string);
   
         if ('id' in postData && 'title' in postData) {
           setPost(postData as Post);
@@ -46,10 +47,10 @@ const PostPage = () => {
       }
     }
   
-    if (id) {
+    if (slug) {
       fetchPost();
     }
-  }, [id]);
+  }, [slug]);
   
   if (!post) {
     return (
