@@ -128,12 +128,14 @@ export default function Nav() {
         { name: 'Home', href: '/' },
         { name: 'Blogs', href: '/blogs' },
         { name: 'About', href: '/about' },
+        { name: 'Contact', href: '/contact' },
         { name: 'Logout', href: '/login', onClick: handleSignOut },
       ]
     : [
         { name: 'Home', href: '/' },
         { name: 'Blogs', href: '/blogs' },
         { name: 'About', href: '/about' },
+        { name: 'Contact', href: '/contact' },
         { name: 'Login', href: '/login' },
       ];
 
