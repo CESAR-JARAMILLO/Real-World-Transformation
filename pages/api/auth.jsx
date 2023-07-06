@@ -143,6 +143,21 @@ export async function getPostById(id) {
   }
 }
 
+export const getPostBySlug = async (slug) => {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};
+
+
 export async function getCommentsByPostId(postId) {
   try {
     const { data, error } = await supabase
