@@ -28,7 +28,7 @@ const Categories = () => {
           >
             <VStack spacing={2}>
               <Text fontSize="2xl" fontWeight="bold">DIET TIPS</Text>
-              <Link href="#" color="white">View Blog</Link>
+              <Link href="/blogs" color="white">View Blog</Link>
             </VStack>
           </Box>
           <Box 
@@ -47,7 +47,7 @@ const Categories = () => {
           >
             <VStack spacing={2}>
               <Text fontSize="2xl" fontWeight="bold">EXCERSISE TIPS</Text>
-              <Link href="#" color="white">View Blog</Link>
+              <Link href="/blogs" color="white">View Blog</Link>
             </VStack>
           </Box>
         </Flex>
@@ -66,7 +66,7 @@ const Categories = () => {
         >
           <VStack spacing={2}>
             <Text fontSize="2xl" fontWeight="bold">LIFESTYLE TIPS</Text>
-            <Link href="#" color="white">View Blog</Link>
+            <Link href="/blogs" color="white">View Blog</Link>
           </VStack>
         </Box>
       </Grid>

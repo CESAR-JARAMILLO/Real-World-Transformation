@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, Text, Button, Flex, useMediaQuery } from '@chakra-ui/react';
+import { Box, Heading, Text, Button, Flex, useMediaQuery, Link } from '@chakra-ui/react';
 
 const Overlay = () => {
   const [isLargerThanMD] = useMediaQuery("(min-width: 768px)");
@@ -11,7 +11,7 @@ const Overlay = () => {
           <Heading as="h3" size="lg">Let&apos;s talk about your project</Heading>
           <Text pt={2}>Ready to take it to the next level? Contact us today and find out how our expertise can help your business grow.</Text>
         </Box>
-        <Button p={6} mt={{ base: '32px', md: '0' }} colorScheme="whiteAlpha">Get in touch</Button>
+        <Button as={Link} href="/contact" p={6} mt={{ base: '32px', md: '0' }} colorScheme="whiteAlpha">Get in touch</Button>
       </Flex>
     </Box>
   );

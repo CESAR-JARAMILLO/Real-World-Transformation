@@ -18,9 +18,9 @@ const Footer = () => {
             {!isLargerThanMD && <Divider borderColor="whiteAlpha.400" my="32px" w="320px" />}
           </Box>
           <Flex direction={{ base: 'column', md: 'row' }} mt={{ base: '0', md: '0' }} gap={{ base: 6, md: 20 }} textAlign="center">
-            <Link href="#">HOME</Link>
-            <Link href="#">ABOUT</Link>
-            <Link href="#">CONTACT</Link>
+            <Link href="/blogs">BLOG</Link>
+            <Link href="/about">ABOUT</Link>
+            <Link href="/contact">CONTACT</Link>
           </Flex>
         </Flex>
         {isLargerThanMD && <Divider borderColor="whiteAlpha.400" w="100%" />}
