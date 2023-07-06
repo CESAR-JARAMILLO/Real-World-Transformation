@@ -35,7 +35,7 @@ const ContactForm = () => {
           </Box>
           <Box w="50%" p={10}>
           <form name="contact" data-netlify="true">
-          <input type="hidden" name="contact-form" value="contact" />
+          <input type="hidden" name="form-name" value="contact" />
           <FormControl id="name" mt={10}>
             <Input 
               type="text" 
@@ -130,7 +130,7 @@ const ContactForm = () => {
           </Box>
           <Box h="100%" p={5}>
             <form name="contact" data-netlify="true">
-              <input type="hidden" name="contact-form" value="contact" />
+              <input type="hidden" name="form-name" value="contact" />
               <FormControl id="name" mt={10}>
                 <Input 
                   type="text" 
