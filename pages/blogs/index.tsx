@@ -9,6 +9,7 @@ import { getPosts } from '../api/auth';
 
 interface Post {
   id: string;
+  slug: string;
   title: string;
   category: string;
   content: string;
@@ -64,6 +65,7 @@ const Posts = () => {
         if (Array.isArray(postsData)) {
           const convertedPosts = postsData.map((postData: any) => ({
             id: postData.id,
+            slug: postData.slug,
             title: postData.title,
             content: postData.paragraph_1.substring(0, 200),
             main_image_url: postData.main_image_url,
@@ -97,7 +99,7 @@ const Posts = () => {
             <Badge mt={3} py={1} px={2} borderRadius={20} variant="solid" colorScheme='whiteAlpha'>{post.category}</Badge>
             <Heading as="h3" size="lg" mt={4}>{post.title}</Heading>
             <Text mt={4}>{post.content}</Text>
-            <Button colorScheme="whiteAlpha" as={Link} href={`/blogs/${post.id}`} p={6} mt={4}>
+            <Button colorScheme="whiteAlpha" as={Link} href={`/blogs/${post.slug}`} p={6} mt={4}>
               Read More
             </Button>
           </Box>
