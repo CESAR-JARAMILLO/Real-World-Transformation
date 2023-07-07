@@ -70,7 +70,7 @@ const PostPage = () => {
           alignItems="center" 
           mt={5} mb={5}
         >
-          <Avatar src='/images/cesar.jpeg' size="sm" name="Cesar Jaramillo" mr={2}/>
+          {/* <Avatar src='/images/cesar.jpeg' size="sm" name="Cesar Jaramillo" mr={2}/> */}
           <Text fontSize={12} mr={2}>By Cesar Jaramillo,</Text>
           <Text fontSize={12} size="sm">published Jul 6, 2023</Text>
         </Flex>
