@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getPostBySlug } from '../api/auth';
-import { Box, Heading, Text, Spinner, VStack, Image, Flex, AspectRatio, Divider } from '@chakra-ui/react';
+import { Box, Heading, Text, Spinner, VStack, Image, Flex, AspectRatio, Divider, Avatar } from '@chakra-ui/react';
 import Comments from '../../components/Comments';
 
 type Post = {
@@ -64,15 +64,27 @@ const PostPage = () => {
   return (
     <Flex justifyContent="center" alignItems="center" direction="column" mt={5}>
       <Box maxWidth="650px" w="100%" p={5}>
-        <Heading as="h1" size="xl" mb={4}>{post.title}</Heading>
+        <Heading as="h1" size="2xl" textAlign="center" mb={4}>{post.title}</Heading>
+        <Flex 
+          justifyContent="center" 
+          alignItems="center" 
+          mt={5} mb={5}
+        >
+          <Avatar src='/images/cesar.jpeg' size="sm" name="Cesar Jaramillo" mr={2}/>
+          <Text fontSize={12} mr={2}>By Cesar Jaramillo,</Text>
+          <Text fontSize={12} size="sm">published Jul 6, 2023</Text>
+        </Flex>
+
         {post.main_image_url && 
-          <AspectRatio ratio={16 / 9} mb={5}>
+          <AspectRatio ratio={16 / 9} mb={20}>
             <Image src={post.main_image_url} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
 
+        <Divider my={10} />
+
         {post.subtitle_1 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_1}</Heading>}
         {post.sub_image_url_1 && 
-          <AspectRatio ratio={16 / 9} maxWidth="500px" mx="auto">
+          <AspectRatio ratio={16 / 9} mx="auto">
             <Image src={post.sub_image_url_1} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_1 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_1}</Text>}
@@ -80,7 +92,7 @@ const PostPage = () => {
 
         {post.subtitle_2 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_2}</Heading>}
         {post.sub_image_url_2 && 
-          <AspectRatio ratio={16 / 9} maxWidth="500px" mx="auto">
+          <AspectRatio ratio={16 / 9} mx="auto">
             <Image src={post.sub_image_url_2} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_2 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_2}</Text>}
@@ -88,7 +100,7 @@ const PostPage = () => {
 
         {post.subtitle_3 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_3}</Heading>}
         {post.sub_image_url_3 && 
-          <AspectRatio ratio={16 / 9} maxWidth="500px" mx="auto">
+          <AspectRatio ratio={16 / 9} mx="auto">
             <Image src={post.sub_image_url_3} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_3 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_3}</Text>}
@@ -96,7 +108,7 @@ const PostPage = () => {
 
         {post.subtitle_4 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_4}</Heading>}
         {post.sub_image_url_4 && 
-          <AspectRatio ratio={16 / 9} maxWidth="500px" mx="auto">
+          <AspectRatio ratio={16 / 9} mx="auto">
             <Image src={post.sub_image_url_4} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_4 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_4}</Text>}
@@ -104,7 +116,7 @@ const PostPage = () => {
 
         {post.subtitle_5 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_5}</Heading>}
         {post.sub_image_url_5 && 
-          <AspectRatio ratio={16 / 9} maxWidth="500px" mx="auto">
+          <AspectRatio ratio={16 / 9} mx="auto">
             <Image src={post.sub_image_url_5} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_5 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_5}</Text>}
