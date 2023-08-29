@@ -93,7 +93,7 @@ const Posts = () => {
         {posts?.map((post) => (
           <Box bgColor="#4169E1" color="white" key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm" mt={10}>
             <AspectRatio ratio={16 / 9}>
-              <Image alt='card-image' src={post.main_image_url} objectFit="cover" borderRadius="md" />
+              <Image loading='lazy' alt='card-image' src={post.main_image_url} objectFit="cover" borderRadius="md" />
             </AspectRatio>
             <Divider borderWidth={1} mt={4} />
             <Badge mt={3} py={1} px={2} borderRadius={20} variant="solid" colorScheme='whiteAlpha'>{post.category}</Badge>

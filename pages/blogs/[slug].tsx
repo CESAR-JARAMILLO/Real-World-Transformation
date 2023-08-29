@@ -77,7 +77,7 @@ const PostPage = () => {
 
         {post.main_image_url && 
           <AspectRatio ratio={16 / 9} mb={20}>
-            <Image src={post.main_image_url} objectFit="cover" borderRadius="md" />
+            <Image loading='lazy' alt='main-image' src={post.main_image_url} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
 
         <Divider my={10} />
@@ -85,7 +85,7 @@ const PostPage = () => {
         {post.subtitle_1 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_1}</Heading>}
         {post.sub_image_url_1 && 
           <AspectRatio ratio={16 / 9} mx="auto">
-            <Image src={post.sub_image_url_1} objectFit="cover" borderRadius="md" />
+            <Image loading='lazy' alt="blog-image" src={post.sub_image_url_1} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_1 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_1}</Text>}
         {post.subtitle_1 && <Divider my={10} />}
@@ -93,7 +93,7 @@ const PostPage = () => {
         {post.subtitle_2 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_2}</Heading>}
         {post.sub_image_url_2 && 
           <AspectRatio ratio={16 / 9} mx="auto">
-            <Image src={post.sub_image_url_2} objectFit="cover" borderRadius="md" />
+            <Image loading='lazy' alt="blog-image" src={post.sub_image_url_2} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_2 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_2}</Text>}
         {post.subtitle_2 && <Divider my={10} />}
@@ -101,7 +101,7 @@ const PostPage = () => {
         {post.subtitle_3 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_3}</Heading>}
         {post.sub_image_url_3 && 
           <AspectRatio ratio={16 / 9} mx="auto">
-            <Image src={post.sub_image_url_3} objectFit="cover" borderRadius="md" />
+            <Image loading='lazy' alt="blog-image" src={post.sub_image_url_3} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_3 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_3}</Text>}
         {post.subtitle_3 && <Divider my={10} />}
@@ -109,7 +109,7 @@ const PostPage = () => {
         {post.subtitle_4 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_4}</Heading>}
         {post.sub_image_url_4 && 
           <AspectRatio ratio={16 / 9} mx="auto">
-            <Image src={post.sub_image_url_4} objectFit="cover" borderRadius="md" />
+            <Image loading='lazy' alt="blog-image" src={post.sub_image_url_4} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_4 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_4}</Text>}
         {post.subtitle_4 && <Divider my={10} />}
@@ -117,7 +117,7 @@ const PostPage = () => {
         {post.subtitle_5 && <Heading as={'h2'} size="lg" mb={5}>{post.subtitle_5}</Heading>}
         {post.sub_image_url_5 && 
           <AspectRatio ratio={16 / 9} mx="auto">
-            <Image src={post.sub_image_url_5} objectFit="cover" borderRadius="md" />
+            <Image loading='lazy' alt="blog-image" src={post.sub_image_url_5} objectFit="cover" borderRadius="md" />
           </AspectRatio>}
         {post.paragraph_5 && <Text lineHeight={1.7} letterSpacing={1} mt={5}>{post.paragraph_5}</Text>}
         {post.subtitle_5 && <Divider my={10} />}
