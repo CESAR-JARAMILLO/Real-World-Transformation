@@ -89,18 +89,18 @@ const Posts = () => {
         <Banner title='Blogs' subtitle='Enjoy our collection of blogs from a range of different topics.' />
       </Flex>
       <SearchPosts onSearch={handleSearch} />
-      <Box mt={isLargerThanMD ? "50px" : "30px"}>
+      <Box mt={{ md: "50px",  base: "30px" }}>
         {posts?.map((post) => (
-          <Box bgColor="#214CCE" color="white" key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm" mt={10}>
+          <Box bgColor="#4169E1" color="white" key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm" mt={10}>
             <AspectRatio ratio={16 / 9}>
               <Image alt='card-image' src={post.main_image_url} objectFit="cover" borderRadius="md" />
             </AspectRatio>
             <Divider borderWidth={1} mt={4} />
             <Badge mt={3} py={1} px={2} borderRadius={20} variant="solid" colorScheme='whiteAlpha'>{post.category}</Badge>
             <Heading as="h3" size="lg" mt={4}>{post.title}</Heading>
-            <Text mt={4}>{post.content}...</Text>
-            <Button colorScheme="whiteAlpha" as={Link} href={`/blogs/${post.slug}`} p={6} mt={4}>
-              Read More
+            {/* <Text mt={4}>{post.content}...</Text> */}
+            <Button colorScheme="whiteAlpha" as={Link} href={`/blogs/${post.slug}`} py={4} px={8} mt={4}>
+              Read
             </Button>
           </Box>
         ))}
