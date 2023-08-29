@@ -42,7 +42,7 @@ export const SearchPosts: React.FC<SearchPostsProps> = ({ onSearch }) => {
             </option>
           ))}
         </Select>
-        <Button colorScheme="twitter" p={5} ml={5} type="submit">Search</Button>
+        <Button bg="#4169E1" color="white" p={5} ml={5} type="submit">Search</Button>
       </Flex>
     </form>
   );
