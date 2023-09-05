@@ -7,11 +7,9 @@ import {
   Input,
   Heading,
   Center,
-  Link,
   VStack,
   Spinner,
   Text,
-  FormLabel
 } from '@chakra-ui/react';
 import { updateUser, getCurrentUser, getCurrentUserProfile, signOut, deleteComments } from './api/auth';
 import { deleteUser } from './api/adminAuth';
