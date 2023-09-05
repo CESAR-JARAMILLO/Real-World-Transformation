@@ -50,10 +50,6 @@ const LoginPage = () => {
     router.push('/blogs');
   };
 
-  const handleSignOut = async () => {
-    signOut()
-  }
-
   return (
     <Flex alignItems="center" justifyContent="center">
       <Box bgColor="#4169E1" borderRadius={20} mt="100px" p={5} py={10} width="sm">
