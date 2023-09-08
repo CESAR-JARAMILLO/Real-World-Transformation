@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getPostBySlug } from '../api/auth';
-import { Box, Heading, Text, Spinner, VStack, Image, Flex, AspectRatio, Divider, Avatar } from '@chakra-ui/react';
+import { Box, Heading, Text, Spinner, VStack, Image, Flex, AspectRatio, Divider } from '@chakra-ui/react';
 import Comments from '../../components/Comments';
 
 type Post = {
