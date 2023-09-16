@@ -1,6 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { createComment, getCommentsByPostId } from '../pages/api/auth';
-import { supabase } from '../lib/supabaseClient';
 import { Box, Button, Textarea, FormControl } from '@chakra-ui/react';
 
 interface CommentFormProps {
