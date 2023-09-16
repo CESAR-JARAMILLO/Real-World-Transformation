@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Flex, Link, Spacer, Text, Icon, VStack, useMediaQuery, useColorModeValue, Divider, Image } from '@chakra-ui/react';
+import { Box, Flex, Link, Text, Icon, VStack, useMediaQuery, Divider, Image } from '@chakra-ui/react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { EmailIcon, PhoneIcon } from '@chakra-ui/icons'; // Importing Chakra UI icons
+import { EmailIcon, PhoneIcon } from '@chakra-ui/icons';
 
 import FooterOverlay from './FooterOverlay';
 
