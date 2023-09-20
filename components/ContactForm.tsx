@@ -1,4 +1,4 @@
-import { Box, Text, Heading, useMediaQuery, Flex, Image, FormControl, FormLabel, Input, Textarea, Button } from "@chakra-ui/react";
+import { Box, Text, Heading, useMediaQuery, Flex, Image, FormControl, Input, Textarea, Button } from "@chakra-ui/react";
 
 const ContactForm = () => {
   const [isLargerThanMD] = useMediaQuery("(min-width: 768px)");
