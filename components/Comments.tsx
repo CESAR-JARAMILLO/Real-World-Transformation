@@ -62,7 +62,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
 
         setSession(sessionData);
         if (sessionData) {
-          setLoggedInUserId(sessionData.user.id); // Set the logged-in user ID
+          setLoggedInUserId(sessionData.user.id);
         }
       } catch (error: any) {
         console.error('Error fetching comments:', error.message);
@@ -109,7 +109,6 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
     setComments(newComments);
   };
 
-  // Show different messages based on the fetch status
   if (fetchStatus === 'loading') {
     return <div>Loading comments...</div>;
   }
