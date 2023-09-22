@@ -120,7 +120,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
   return (
     <VStack spacing={4} align="stretch">
       <Heading as="h2" size="lg">Comments</Heading>
-      {comments && comments.map(comment => (
+      {comments?.map(comment => (
         <Comment
           key={comment.id}
           comment={comment}
