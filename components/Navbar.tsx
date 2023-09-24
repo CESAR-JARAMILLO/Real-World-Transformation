@@ -88,7 +88,7 @@ export default function Nav() {
 
     const fetchAndSetUserData = async () => {
       const userProfile = await getCurrentUserProfile();
-      if (userProfile && userProfile[0]) {
+      if (userProfile?.[0]) {
         setUsername(userProfile[0].username);
         setAvatarUrl(userProfile[0].avatar_url);
       }
