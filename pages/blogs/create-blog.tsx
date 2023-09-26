@@ -5,28 +5,30 @@ import { Flex, Spinner } from '@chakra-ui/react';
 
 const CreateBlog = () => {
   const router = useRouter();
-  const [hasFullAccess, setHasFullAccess] = useState(false);
+  const [hasFullAccess, setHasFullAccess] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     async function checkAccess() {
       try {
         const fullAccess = await checkIfFullAccess();
         setHasFullAccess(fullAccess);
-        if (!hasFullAccess) {
-          console.log('No access');
-          router.push('/blogs');
-        } else {
-          setIsLoading(false);
-        }
       } catch (error) {
         console.error('Error:', error);
       }
     }
-  
     checkAccess();
-  }, [hasFullAccess, router]);   
+  }, [router]);
+
+  useEffect(() => {
+    if (hasFullAccess === null) {
+    } else if (!hasFullAccess) {
+      console.log('No access');
+      router.push('/blogs');
+    } else {
+      setIsLoading(false);
+    }
+  }, [hasFullAccess, router]);
 
   if(isLoading) {
     return (
@@ -41,4 +43,4 @@ const CreateBlog = () => {
   )
 }
 
-export default CreateBlog
+export default CreateBlog;
