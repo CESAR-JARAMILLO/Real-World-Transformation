@@ -13,8 +13,8 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-import ImageUploader from './ImageUploader';
 import FormSection from './FormSection';
+import FormHeader from './FormHeader';
 
 const CreateBlogForm = () => {
   const user = useUser();
@@ -62,16 +62,10 @@ const CreateBlogForm = () => {
     <Card m="auto" mt={20} w="xl">
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
-          <Box>
-            <Text mb={2} textAlign={'center'} fontSize="2xl" fontWeight="bold">
-                Blog Header
-            </Text>
-            <FormControl>
-              <FormLabel>Blog Title</FormLabel>
-              <Input onChange={handleBlogTitleChange} />
-            </FormControl>
-            <ImageUploader setUrl={setMainImageUrl} imageSectionName={'Main Image'} />
-          </Box>
+        <FormHeader 
+            handleBlogTitleChange={handleBlogTitleChange}
+            setMainImageUrl={setMainImageUrl}
+          />
           <FormSection
             handleParagraphOneTitleChange={handleParagraphOneTitleChange}
             handleParagraphOneChange={handleParagraphOneChange}
