@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
+import { Box, Text, FormControl, FormLabel, Input, Textarea, Collapse, useDisclosure, Button } from '@chakra-ui/react';
 import ImageUploader from './ImageUploader';
 
 interface FormSectionProps {
@@ -9,21 +9,25 @@ interface FormSectionProps {
 }
 
 const FormSection: React.FC<FormSectionProps> = ({ handleParagraphOneTitleChange, handleParagraphOneChange, setSectionOneImageUrl }) => {
+  const { isOpen, onToggle } = useDisclosure();
   return (
-    <Box>
+    <>
       <Text mb={2} textAlign={'center'} fontSize="2xl" fontWeight="bold">
         Section 1
       </Text>
-      <FormControl>
-        <FormLabel>Paragraph 1 Title</FormLabel>
-        <Input onChange={handleParagraphOneTitleChange} />
-      </FormControl>
-      <ImageUploader setUrl={setSectionOneImageUrl} imageSectionName={'Section 1 Image'} />
-      <FormControl>
-        <FormLabel>Paragraph 1</FormLabel>
-        <Textarea onChange={handleParagraphOneChange} />
-      </FormControl>
-    </Box>
+      <Button onClick={onToggle}>Toggle Section</Button>
+      <Collapse in={isOpen} animateOpacity>
+        <FormControl mt={4}>
+          <FormLabel>Paragraph 1 Title</FormLabel>
+          <Input onChange={handleParagraphOneTitleChange} />
+        </FormControl>
+        <ImageUploader setUrl={setSectionOneImageUrl} imageSectionName={'Section 1 Image'} />
+        <FormControl>
+          <FormLabel>Paragraph 1</FormLabel>
+          <Textarea onChange={handleParagraphOneChange} />
+        </FormControl>
+      </Collapse>
+    </>
   );
 };
 
