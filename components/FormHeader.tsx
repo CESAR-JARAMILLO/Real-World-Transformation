@@ -18,10 +18,10 @@ const FormHeader: React.FC<FormHeaderProps> = ({ handleBlogTitleChange, setMainI
       <Button onClick={onToggle}>Toggle Header</Button>
       <Collapse in={isOpen} animateOpacity>
         <FormControl mt={4}>
-          <FormLabel>Blog Title</FormLabel>
+          <FormLabel>Blog Title:</FormLabel>
           <Input onChange={handleBlogTitleChange} />
         </FormControl>
-        <ImageUploader setUrl={setMainImageUrl} imageSectionName={'Main Image'} />
+        <ImageUploader setUrl={setMainImageUrl} imageSectionName={'Main Image:'} />
       </Collapse>
     </>
   );

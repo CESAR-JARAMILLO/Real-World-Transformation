@@ -18,12 +18,12 @@ const FormSection: React.FC<FormSectionProps> = ({ handleParagraphOneTitleChange
       <Button onClick={onToggle}>Toggle Section</Button>
       <Collapse in={isOpen} animateOpacity>
         <FormControl mt={4}>
-          <FormLabel>Paragraph 1 Title</FormLabel>
+          <FormLabel>Paragraph Title:</FormLabel>
           <Input onChange={handleParagraphOneTitleChange} />
         </FormControl>
-        <ImageUploader setUrl={setSectionOneImageUrl} imageSectionName={'Section 1 Image'} />
+        <ImageUploader setUrl={setSectionOneImageUrl} imageSectionName={'Section Image:'} />
         <FormControl>
-          <FormLabel>Paragraph 1</FormLabel>
+          <FormLabel>Paragraph Content:</FormLabel>
           <Textarea onChange={handleParagraphOneChange} />
         </FormControl>
       </Collapse>

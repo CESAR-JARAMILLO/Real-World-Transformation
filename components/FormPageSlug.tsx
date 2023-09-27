@@ -13,10 +13,10 @@ const FormPageSlug: React.FC<FormPageSlugProps> = ({ handleSlugChange }) => {
       <Text mb={2} textAlign={'center'} fontSize="2xl" fontWeight="bold">
         Page Slug
       </Text>
-      <Button onClick={onToggle}>Toggle Section</Button>
+      <Button onClick={onToggle}>Toggle Slug Input</Button>
       <Collapse in={isOpen} animateOpacity>
         <FormControl>
-          <FormLabel>Slug</FormLabel>
+          <FormLabel>Slug:</FormLabel>
           <Input onChange={handleSlugChange} />
         </FormControl>
       </Collapse>
