@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { checkIfFullAccess } from '../api/auth';
 import { useRouter } from 'next/router';
-import { Flex, Spinner } from '@chakra-ui/react';
+import { Flex, Heading, Spinner } from '@chakra-ui/react';
+import CreateBlogForm from '@/components/CreateBlogForm';
 
 const CreateBlog = () => {
   const router = useRouter();
@@ -39,7 +40,14 @@ const CreateBlog = () => {
   }
 
   return (
-    <div>CreateBlog</div>
+    <>
+      {hasFullAccess && (
+        <Flex flexDir={'column'} justify={'center'} align={'center'}>
+          <Heading as='h2'>Create Blog</Heading>
+          <CreateBlogForm />
+        </Flex>
+      )}
+    </>
   )
 }
 
