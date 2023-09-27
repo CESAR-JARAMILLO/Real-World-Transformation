@@ -20,7 +20,7 @@ const ImageUploader = ({ setUrl, imageSectionName }: ImageUploaderProps) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setAlertSuccessText(`${selectedFile.name} file selected.`);
+      setAlertSuccessText(`${selectedFile.name} file selected. Click 'Start Upload' to upload.`);
     } else {
       setAlertErrorText("No file selected.");
       setFile(null);
@@ -62,7 +62,7 @@ const ImageUploader = ({ setUrl, imageSectionName }: ImageUploaderProps) => {
   };
 
   return (
-    <FormControl pt={5}>
+    <FormControl pt={5} mb={4}>
       <input
         type="file"
         onChange={handleFileChange}
@@ -74,14 +74,14 @@ const ImageUploader = ({ setUrl, imageSectionName }: ImageUploaderProps) => {
       <Text fontWeight={'500'}>{imageSectionName}</Text>
       <Flex mt={3} align={'center'} justify={'space-around'}>
         <Button onClick={handleFileInputClick}>
-          {file ? file.name : 'Select File'}
+          Select File
         </Button>
-        <Button onClick={handleUpload} isDisabled={isLoading}>
-          Start Upload
+        <Button onClick={handleUpload} isDisabled={!alertSuccessText}>
+          {isLoading ? <Spinner /> : 'Start Upload'}
         </Button>
       </Flex>
       {alertErrorText || alertSuccessText && (
-        <Alert mt={4} status={alertErrorText ? 'error' : 'success'}>
+        <Alert borderRadius={10} mt={4} status={alertErrorText ? 'error' : 'success'}>
           <AlertIcon />
           <AlertDescription>{alertErrorText ? alertErrorText : alertSuccessText}</AlertDescription>
         </Alert>
