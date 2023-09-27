@@ -15,6 +15,7 @@ import {
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import FormSection from './FormSection';
 import FormHeader from './FormHeader';
+import FormPageSlug from './FormPageSlug';
 
 const CreateBlogForm = () => {
   const user = useUser();
@@ -38,7 +39,7 @@ const CreateBlogForm = () => {
     setParagraphOne(e.target.value);
   }
 
-  const handleSlugChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSlug(e.target.value);
   }
 
@@ -71,15 +72,9 @@ const CreateBlogForm = () => {
             handleParagraphOneChange={handleParagraphOneChange}
             setSectionOneImageUrl={setSectionOneImageUrl}
           />
-          <Box>
-            <Text mb={2} textAlign={'center'} fontSize="2xl" fontWeight="bold">
-                Page Slug
-            </Text>  
-            <FormControl>
-                <FormLabel>Slug</FormLabel>
-                <Textarea onChange={handleSlugChange} />
-            </FormControl>
-          </Box>
+          <FormPageSlug
+            handleSlugChange={handleSlugChange}
+          />
           <Button onClick={handleSubmit} colorScheme="blue">
             Create Blog
           </Button>
