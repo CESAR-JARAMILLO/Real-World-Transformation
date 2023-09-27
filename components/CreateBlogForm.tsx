@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -9,10 +9,12 @@ import {
   Input,
   Stack,
   StackDivider,
+  Text,
   Textarea,
 } from '@chakra-ui/react';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import ImageUploader from './ImageUploader';
+import FormSection from './FormSection';
 
 const CreateBlogForm = () => {
   const user = useUser();
@@ -21,10 +23,8 @@ const CreateBlogForm = () => {
   const [paragraphOneTitle, setParagraphOneTitle] = useState<string>('');
   const [paragraphOne, setParagraphOne] = useState<string>('');
   const [slug, setSlug] = useState<string>('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [file, setFile] = useState<File | null>(null);
-  const [isUploading, setIsUploading] = useState<boolean>(false);
-  const [url, setUrl] = useState<string | null>(null);
+  const [mainImageUrl, setMainImageUrl] = useState<string | null>(null);
+  const [sectionOneImageUrl, setSectionOneImageUrl] = useState<string | null>(null);
 
   const handleBlogTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBlogTitle(e.target.value);
@@ -46,12 +46,13 @@ const CreateBlogForm = () => {
     supabase.from('posts')
     .insert({
       title: blogTitle,
-      main_image_url: url,
-      slug,
+      main_image_url: mainImageUrl,
       subtitle_1: paragraphOneTitle,
+      sub_image_url_1: sectionOneImageUrl,
       paragraph_1: paragraphOne,
       category: 'health',
       user_id: user?.id,
+      slug,
 
     })
     .then(response => {console.log(response)})
@@ -62,26 +63,29 @@ const CreateBlogForm = () => {
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
           <Box>
+            <Text mb={2} textAlign={'center'} fontSize="2xl" fontWeight="bold">
+                Blog Header
+            </Text>
             <FormControl>
               <FormLabel>Blog Title</FormLabel>
               <Input onChange={handleBlogTitleChange} />
             </FormControl>
-            <ImageUploader setUrl={setUrl} imageSectionName={'Main Image'} />
+            <ImageUploader setUrl={setMainImageUrl} imageSectionName={'Main Image'} />
           </Box>
+          <FormSection
+            handleParagraphOneTitleChange={handleParagraphOneTitleChange}
+            handleParagraphOneChange={handleParagraphOneChange}
+            setSectionOneImageUrl={setSectionOneImageUrl}
+          />
           <Box>
+            <Text mb={2} textAlign={'center'} fontSize="2xl" fontWeight="bold">
+                Page Slug
+            </Text>  
             <FormControl>
-              <FormLabel>Paragraph 1 Title</FormLabel>
-              <Input onChange={handleParagraphOneTitleChange} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Paragraph 1</FormLabel>
-              <Textarea onChange={handleParagraphOneChange} />
+                <FormLabel>Slug</FormLabel>
+                <Textarea onChange={handleSlugChange} />
             </FormControl>
           </Box>
-          <FormControl>
-            <FormLabel>Slug</FormLabel>
-            <Textarea onChange={handleSlugChange} />
-          </FormControl>
           <Button onClick={handleSubmit} colorScheme="blue">
             Create Blog
           </Button>
