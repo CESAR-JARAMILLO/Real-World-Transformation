@@ -6,14 +6,15 @@ interface FormSectionProps {
   handleParagraphOneTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleParagraphOneChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   setSectionOneImageUrl: React.Dispatch<React.SetStateAction<string | null>>;
+  sectionTitle: string;
 }
 
-const FormSection: React.FC<FormSectionProps> = ({ handleParagraphOneTitleChange, handleParagraphOneChange, setSectionOneImageUrl }) => {
+const FormSection: React.FC<FormSectionProps> = ({ handleParagraphOneTitleChange, handleParagraphOneChange, setSectionOneImageUrl, sectionTitle }) => {
   const { isOpen, onToggle } = useDisclosure();
   return (
     <>
       <Text mb={2} textAlign={'center'} fontSize="2xl" fontWeight="bold">
-        Section 1
+        {sectionTitle}
       </Text>
       <Button onClick={onToggle}>Toggle Section</Button>
       <Collapse in={isOpen} animateOpacity>

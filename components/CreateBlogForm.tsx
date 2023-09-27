@@ -68,6 +68,7 @@ const CreateBlogForm = () => {
             setMainImageUrl={setMainImageUrl}
           />
           <FormSection
+            sectionTitle={'Section 1'}
             handleParagraphOneTitleChange={handleParagraphOneTitleChange}
             handleParagraphOneChange={handleParagraphOneChange}
             setSectionOneImageUrl={setSectionOneImageUrl}
