@@ -12,6 +12,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import ImageUploader from './ImageUploader';
 
 const CreateBlogForm = () => {
   const user = useUser();
@@ -41,62 +42,6 @@ const CreateBlogForm = () => {
     setSlug(e.target.value);
   }
 
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("handleFileChange triggered"); 
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-    } else {
-      alert("No file selected.");
-      setFile(null);
-    }
-  };
-  
-
-  const handleFileInputClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
-  const handleUpload = async () => {
-    console.log("handleUpload started"); 
-    if (!file) {
-      console.warn('No file to upload.');
-      return;
-    }
-  
-    setIsUploading(true);
-  
-    try {
-      const newName = `${Date.now()}${file.name}`;
-      const { data, error: uploadError } = await supabase.storage.from('test').upload(newName, file);
-  
-      if (uploadError) {
-        console.error("Upload error:", uploadError);
-        return;
-      }
-  
-      if (!data) {
-        console.warn('Upload was successful, but no data was returned.');
-        return;
-      }
-  
-      const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/test/${data.path}`;
-  
-      if (user?.id) {
-    
-        setUrl(url);
-        console.log(url);
-      }
-    } catch (e) {
-      console.error('An unexpected error occurred:', e);
-    } finally {
-      setIsUploading(false);
-      // resetFileInput();
-    }
-  };
-
   const handleSubmit = () => {
     supabase.from('posts')
     .insert({
@@ -117,38 +62,23 @@ const CreateBlogForm = () => {
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
           <Box>
-            <FormControl isRequired>
+            <FormControl>
               <FormLabel>Blog Title</FormLabel>
               <Input onChange={handleBlogTitleChange} />
             </FormControl>
-            <FormControl>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                accept="image/*"
-                multiple={false}
-                ref={fileInputRef}
-                // style={{ display: 'none' }}
-              />
-              <Button variant="light" onClick={handleFileInputClick} color="green">
-                Upload File
-              </Button>
-              <Button variant="light" onClick={handleUpload} color="blue">
-  Start Upload
-</Button>
-            </FormControl>
+            <ImageUploader setUrl={setUrl} imageSectionName={'Main Image'} />
           </Box>
           <Box>
-            <FormControl isRequired>
+            <FormControl>
               <FormLabel>Paragraph 1 Title</FormLabel>
               <Input onChange={handleParagraphOneTitleChange} />
             </FormControl>
-            <FormControl isRequired>
+            <FormControl>
               <FormLabel>Paragraph 1</FormLabel>
               <Textarea onChange={handleParagraphOneChange} />
             </FormControl>
           </Box>
-          <FormControl isRequired>
+          <FormControl>
             <FormLabel>Slug</FormLabel>
             <Textarea onChange={handleSlugChange} />
           </FormControl>
