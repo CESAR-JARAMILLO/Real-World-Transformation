@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signIn, signOut } from './api/auth';
+import { signIn } from './api/auth';
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -33,7 +33,7 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    const { data, error } = await signIn(email, password);
+    const { error } = await signIn(email, password);
   
     if (error) {
       if (error.message) {
