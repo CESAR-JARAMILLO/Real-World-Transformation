@@ -14,6 +14,8 @@ import {
   AlertIcon
 } from '@chakra-ui/react';
 
+// Update Login using Supabase Auth UI
+
 const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
