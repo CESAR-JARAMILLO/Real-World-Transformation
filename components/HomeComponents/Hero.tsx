@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 const Hero = () => {
+  // Replace code
   const [isLargerThanMD] = useMediaQuery("(min-width: 768px)");
 
   return (
