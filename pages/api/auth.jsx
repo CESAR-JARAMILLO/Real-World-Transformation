@@ -169,17 +169,26 @@ export async function getPostById(id) {
 }
 
 export const getPostBySlug = async (slug) => {
-  const { data, error } = await supabase
-    .from('posts')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('slug', slug)
+      .single();
 
-  if (error) {
-    throw error;
+    if (error) {
+      throw new Error(error.message); // Throw an error with the error message from Supabase
+    }
+
+    if (!data) {
+      throw new Error('Post not found'); // Throw an error if no post with the given slug was found
+    }
+
+    return data; // Return the post data
+  } catch (error) {
+    console.error('Error fetching post by slug:', error.message); // Log any errors to the console
+    throw error; // Re-throw the error to propagate it up the call stack
   }
-
-  return data;
 };
 
 
