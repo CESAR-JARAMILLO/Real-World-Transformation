@@ -89,7 +89,7 @@ const Posts = () => {
         <Banner title='Blogs' subtitle='Enjoy our collection of blogs from a range of different topics.' />
       </Flex>
       <SearchPosts onSearch={handleSearch} />
-      <Box mt={{ md: "50px",  base: "30px" }}>
+      <Flex justify={'center'} wrap={'wrap'} gap={20} mt={{ md: "50px",  base: "30px" }}>
         {posts?.map((post) => (
           <Box bgColor="#4169E1" color="white" key={post.id} p={5} shadow="md" borderWidth={1} borderRadius="md" maxWidth="sm" mt={10}>
             <AspectRatio ratio={16 / 9}>
@@ -104,7 +104,7 @@ const Posts = () => {
             </Button>
           </Box>
         ))}
-      </Box>
+      </Flex>
     </VStack>
   );
 };
