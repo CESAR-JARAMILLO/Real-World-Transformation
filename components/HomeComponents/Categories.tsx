@@ -13,7 +13,7 @@ const Categories = () => {
       >
         <Flex direction="column" gap={6}>
           <Box 
-            background="linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/images/fitness.jpg')"
+            background="linear-gradient(rgba(33, 76, 206 ,0.3), rgba(33, 76, 206 ,0.3)), url('https://st2.depositphotos.com/1005563/8505/i/450/depositphotos_85057086-stock-photo-diet-and-fitness-vitamin-concept.jpg')"
             bgPosition="center"
             bgRepeat="no-repeat"
             bgSize="cover"
@@ -32,7 +32,7 @@ const Categories = () => {
             </VStack>
           </Box>
           <Box 
-            background="linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/images/fitness.jpg')"
+            background="linear-gradient(rgba(33, 76, 206 ,0.3), rgba(33, 76, 206 ,0.3)), url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=pexels-victor-freitas-841130.jpg&fm=jpg')"
             bgPosition="center"
             bgRepeat="no-repeat"
             bgSize="cover"
@@ -52,7 +52,7 @@ const Categories = () => {
           </Box>
         </Flex>
         <Box 
-          background="linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/images/fitness.jpg')"
+          background="linear-gradient(rgba(33, 76, 206 ,0.3), rgba(33, 76, 206 ,0.3)), url('https://media.istockphoto.com/id/618982838/photo/lace-up-for-the-workout-of-your-life.jpg?s=612x612&w=0&k=20&c=TiOXixIIyLNcP6GqKglpsZRUgliwxCVskeVI-dqCRec=')"
           bgPosition="center"
           bgRepeat="no-repeat"
           bgSize="cover"
